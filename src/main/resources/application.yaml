@@ -1,0 +1,74 @@
+liquibase:
+  datasources:
+    default:
+      change-log: classpath:db/liquibase-changelog.xml
+
+micronaut:
+  application:
+    name: gammy
+
+  session:
+    http:
+      header: true
+      cookie: true
+
+  security:
+    enabled: true
+    redirect:
+      enabled: false
+    csrf:
+      enabled: false
+      token-resolvers:
+        http-header:
+          enabled: false
+        field:
+          enabled: false
+    cors:
+      enabled: true
+      configurations:
+        local:
+          allowed-origins:
+            - '^http(s)?://(localhost|127\\.0\\.0\\.1):[0-9]+'
+          allowed-methods:
+            - GET
+            - POST
+          allowed-headers:
+            - Content-Type
+            - Authorization
+          allow-credentials: true
+    authentication: session
+    session:
+      enabled: true
+    endpoints:
+      login:
+        enabled: true
+      logout:
+        enabled: true
+    intercept-url-map:
+      - pattern: /login
+        access:
+          - isAnonymous()
+      - pattern: /logout
+        access:
+          - isAuthenticated()
+      - pattern: /profile/**
+        access:
+          - isAuthenticated()
+      - pattern: /**
+        access:
+          - permitAll()
+
+datasources:
+  default:
+    db-type: postgres
+    driver-class-name: org.postgresql.Driver
+    username: gammy
+    password: gammypassword
+    url: jdbc:postgresql://localhost:5432/gammydb
+
+logger:
+  io:
+    micronaut:
+      security: DEBUG
+      http:
+        server: DEBUG
