@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1749418419859-1" author="andrei">
+        <createTable tableName="GameStatEntity">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_gamestatentity"/>
+            </column>
+            <column name="apiName" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="displayName" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="defaultValue" type="DECIMAL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="maxValue" type="DECIMAL"/>
+            <column name="minValue" type="DECIMAL"/>
+            <column name="maxChange" type="DECIMAL"/>
+            <column defaultValueBoolean="false" name="onlyIncrement" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749418419859-2" author="andrei">
+        <createTable tableName="PlayerStatEntity">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_playerstatentity"/>
+            </column>
+            <column name="game_stat_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="player_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="DECIMAL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastUpdate" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749418419859-3" author="andrei">
+        <addUniqueConstraint columnNames="apiName" constraintName="uc_gamestatentity_apiname"
+                             tableName="GameStatEntity"/>
+    </changeSet>
+    <changeSet id="1749418419859-4" author="andrei">
+        <addUniqueConstraint columnNames="displayName" constraintName="uc_gamestatentity_displayname"
+                             tableName="GameStatEntity"/>
+    </changeSet>
+    <changeSet id="1749418419859-5" author="andrei">
+        <addForeignKeyConstraint baseColumnNames="game_stat_id" baseTableName="PlayerStatEntity"
+                                 constraintName="FK_PLAYERSTATENTITY_ON_GAME_STAT" referencedColumnNames="id"
+                                 referencedTableName="GameStatEntity"/>
+    </changeSet>
+    <changeSet id="1749418419859-6" author="andrei">
+        <addForeignKeyConstraint baseColumnNames="player_id" baseTableName="PlayerStatEntity"
+                                 constraintName="FK_PLAYERSTATENTITY_ON_PLAYER" referencedColumnNames="id"
+                                 referencedTableName="PlayerEntity"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,4 +1,4 @@
-package com.gammy;
+package com.gammy.service;
 
 import com.gammy.model.PlayerEntity;
 import com.gammy.model.dto.PlayerRegistrationRequest;

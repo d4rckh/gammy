@@ -1,20 +1,19 @@
 package com.gammy.authentication;
 
-import com.gammy.PlayerService;
+import com.gammy.service.PlayerService;
 import com.gammy.model.PlayerEntity;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.security.authentication.AuthenticationRequest;
 import io.micronaut.security.authentication.AuthenticationResponse;
 import jakarta.inject.Singleton;
-
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.security.authentication.provider.HttpRequestReactiveAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mindrot.jbcrypt.BCrypt;
 import org.reactivestreams.Publisher;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.FluxSink;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,41 +25,48 @@ public class AuthenticationProviderUserPassword<B> implements HttpRequestReactiv
 
     private final PlayerService playerService;
 
+    public static final String PLAYER_PREFIX = "player_";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_PLAYER = "ROLE_PLAYER";
+
+    public static final String ADMIN_PASSWORD = "admin";
+    public static final String ADMIN_USER = "admin";
+
     @Override
     public Publisher<AuthenticationResponse> authenticate(
             @Nullable HttpRequest<B> httpRequest,
             @NonNull AuthenticationRequest<String, String> authenticationRequest
     ) {
-        return Flux.create(emitter -> {
-            if (authenticationRequest.getIdentity().startsWith("player_")) {
-                String playerName = authenticationRequest.getIdentity().replaceFirst("player_", "");
+        String identity = authenticationRequest.getIdentity();
+        String secret = authenticationRequest.getSecret();
 
-                Optional<PlayerEntity> playerEntityOptional = playerService.findByUsername(playerName);
+        if (identity == null || identity.isEmpty()) {
+            return Mono.error(AuthenticationResponse.exception());
+        }
 
-                if (playerEntityOptional.isEmpty()) {
-                    emitter.error(AuthenticationResponse.exception());
-                    return;
-                }
+        // ADMIN AUTHENTICATION
 
-                emitter.next(
-                        AuthenticationResponse.success(playerEntityOptional.get().getUsername(),
-                                List.of("ROLE_PLAYER"))
-                );
+        if (ADMIN_USER.equals(identity) && ADMIN_PASSWORD.equals(secret)) {
+            return Mono.just(AuthenticationResponse.success(identity, List.of(ROLE_ADMIN)));
+        }
 
-                emitter.complete();
-            }
+        // PLAYER AUTHENTICATION
 
-            if (!authenticationRequest.getIdentity().equals("admin") ||
-                    !authenticationRequest.getSecret().equals("admin")) {
-                emitter.error(AuthenticationResponse.exception());
-                return;
-            }
+        if (!identity.startsWith(PLAYER_PREFIX)) {
+            return Mono.error(AuthenticationResponse.exception());
+        }
 
-            emitter.next(AuthenticationResponse.success(
-                    authenticationRequest.getIdentity(),
-                    List.of("ROLE_ADMIN")
-            ));
-            emitter.complete();
-        }, FluxSink.OverflowStrategy.ERROR);
+        String playerName = identity.substring(PLAYER_PREFIX.length());
+        Optional<PlayerEntity> playerOpt = playerService.findByUsername(playerName);
+
+        if (playerOpt.isEmpty()) {
+            return Mono.error(AuthenticationResponse.exception());
+        }
+
+        if (!BCrypt.checkpw(secret, playerOpt.get().getHashedPassword())) {
+            return Mono.error(AuthenticationResponse.exception());
+        }
+
+        return Mono.just(AuthenticationResponse.success(playerOpt.get().getUsername(), List.of(ROLE_PLAYER)));
     }
 }

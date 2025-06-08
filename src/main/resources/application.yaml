@@ -57,6 +57,9 @@ micronaut:
       - pattern: /**
         access:
           - permitAll()
+  serde:
+    serialization:
+      inclusion: always
 
 datasources:
   default:
