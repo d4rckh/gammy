@@ -1,12 +1,12 @@
 package com.gammy.service;
 
-import com.gammy.model.GameStatEntity;
+import com.gammy.model.entity.stat.GameStatEntity;
 import com.gammy.model.GameStatType;
-import com.gammy.model.PlayerEntity;
-import com.gammy.model.PlayerStatEntity;
-import com.gammy.repository.GameStatRepository;
+import com.gammy.model.entity.PlayerEntity;
+import com.gammy.model.entity.stat.PlayerStatEntity;
+import com.gammy.repository.stat.GameStatRepository;
 import com.gammy.repository.PlayerRepository;
-import com.gammy.repository.PlayerStatRepository;
+import com.gammy.repository.stat.PlayerStatRepository;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 

@@ -1,8 +1,11 @@
 # Gammy
 
+Universal server for your game
+
 ### Current features:
 - authenticate players
 - authenticate admin
+
 game stats:
 - create game stats example:
 ```json
@@ -22,3 +25,9 @@ game stats:
 - update player stat
 - validate player stat
 - get all player stats
+
+achievements:
+- create game achievement
+- unlock and lock achievements
+- dynamic unlock with conditions
+  - example: automatically unlock achievement when `kills` stat is >= 10: `stat("kills") >= 10`

@@ -1,6 +1,6 @@
-package com.gammy.repository;
+package com.gammy.repository.stat;
 
-import com.gammy.model.GameStatEntity;
+import com.gammy.model.entity.stat.GameStatEntity;
 import io.micronaut.data.annotation.Repository;
 import io.micronaut.data.repository.CrudRepository;
 

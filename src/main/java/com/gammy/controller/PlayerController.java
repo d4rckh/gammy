@@ -1,7 +1,7 @@
 package com.gammy.controller;
 
 import com.gammy.service.PlayerService;
-import com.gammy.model.PlayerEntity;
+import com.gammy.model.entity.PlayerEntity;
 import com.gammy.model.dto.PlayerRegistrationRequest;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@Controller("/players")
+@Controller("players")
 @RequiredArgsConstructor
 public class PlayerController {
 

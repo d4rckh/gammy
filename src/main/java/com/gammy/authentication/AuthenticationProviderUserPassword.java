@@ -1,7 +1,7 @@
 package com.gammy.authentication;
 
 import com.gammy.service.PlayerService;
-import com.gammy.model.PlayerEntity;
+import com.gammy.model.entity.PlayerEntity;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.security.authentication.AuthenticationRequest;
@@ -15,7 +15,9 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
+import java.lang.reflect.MalformedParameterizedTypeException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -67,6 +69,10 @@ public class AuthenticationProviderUserPassword<B> implements HttpRequestReactiv
             return Mono.error(AuthenticationResponse.exception());
         }
 
-        return Mono.just(AuthenticationResponse.success(playerOpt.get().getUsername(), List.of(ROLE_PLAYER)));
+        return Mono.just(AuthenticationResponse.success(
+                playerOpt.get().getUsername(),
+                List.of(ROLE_PLAYER),
+                Map.of("playerId", playerOpt.get().getId())
+        ));
     }
 }

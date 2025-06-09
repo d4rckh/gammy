@@ -1,10 +1,9 @@
-package com.gammy.repository;
+package com.gammy.repository.stat;
 
-import com.gammy.model.PlayerStatEntity;
+import com.gammy.model.entity.stat.PlayerStatEntity;
 import io.micronaut.data.annotation.Repository;
 import io.micronaut.data.repository.CrudRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository

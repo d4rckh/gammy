@@ -1,4 +1,4 @@
-package com.gammy.model;
+package com.gammy.model.entity;
 
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;

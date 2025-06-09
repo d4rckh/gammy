@@ -1,5 +1,6 @@
-package com.gammy.model;
+package com.gammy.model.entity.stat;
 
+import com.gammy.model.GameStatType;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;

@@ -1,6 +1,6 @@
 package com.gammy.service;
 
-import com.gammy.model.PlayerEntity;
+import com.gammy.model.entity.PlayerEntity;
 import com.gammy.model.dto.PlayerRegistrationRequest;
 import com.gammy.repository.PlayerRepository;
 import io.micronaut.security.authentication.AuthenticationException;
@@ -16,6 +16,10 @@ import java.util.Optional;
 public class PlayerService {
 
     private final PlayerRepository playerRepository;
+
+    public Optional<PlayerEntity> findById(Long id) {
+        return playerRepository.findById(id);
+    }
 
     public Optional<PlayerEntity> findByUsername(String username) {
         return playerRepository.findByUsername(username);

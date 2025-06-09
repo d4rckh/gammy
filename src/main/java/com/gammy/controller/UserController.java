@@ -8,7 +8,7 @@ import io.micronaut.security.rules.SecurityRule;
 
 import java.util.Map;
 
-@Controller("/user")
+@Controller("user")
 public class UserController {
 
     @Get
