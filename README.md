@@ -3,8 +3,12 @@
 Universal server for your game
 
 ### Current features:
+
+authentication and authorization:
 - authenticate players
 - authenticate admin
+- create player profiles
+- validate permissions against objects
 
 game stats:
 - create game stats example:
@@ -22,12 +26,15 @@ game stats:
     "onlyIncrement": false
 }
 ```
-- update player stat
-- validate player stat
-- get all player stats
+- update player stat with different update methods
+- validate player stat using min/max values, max change value and only increment
 
 achievements:
-- create game achievement
+- create game achievements
 - unlock and lock achievements
 - dynamic unlock with conditions
   - example: automatically unlock achievement when `kills` stat is >= 10: `stat("kills") >= 10`
+
+leaderboards:
+- dynamic leaderboards based on already created game stats
+- can be ascending or descending

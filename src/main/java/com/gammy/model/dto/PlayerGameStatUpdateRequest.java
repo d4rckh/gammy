@@ -10,4 +10,5 @@ import java.math.BigDecimal;
 public class PlayerGameStatUpdateRequest {
     private String gameStatApiName;
     private BigDecimal newValue;
+    private PlayerGameStatUpdateMethod updateMethod = PlayerGameStatUpdateMethod.FORCE;
 }

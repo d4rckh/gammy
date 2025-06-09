@@ -46,7 +46,8 @@ public class StatController {
         return this.statService.updatePlayerStat(
                 playerId,
                 playerGameStatUpdateRequest.getGameStatApiName(),
-                playerGameStatUpdateRequest.getNewValue()
+                playerGameStatUpdateRequest.getNewValue(),
+                playerGameStatUpdateRequest.getUpdateMethod()
         );
     }
 }

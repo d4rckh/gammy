@@ -1,4 +1,4 @@
-package com.gammy.model;
+package com.gammy.model.entity.stat;
 
 public enum GameStatType {
     INTEGER,

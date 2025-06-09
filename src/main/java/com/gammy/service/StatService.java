@@ -1,12 +1,15 @@
 package com.gammy.service;
 
+import com.gammy.model.dto.PlayerGameStatUpdateMethod;
+import com.gammy.model.entity.leaderboard.LeaderboardSortMethod;
 import com.gammy.model.entity.stat.GameStatEntity;
-import com.gammy.model.GameStatType;
+import com.gammy.model.entity.stat.GameStatType;
 import com.gammy.model.entity.PlayerEntity;
 import com.gammy.model.entity.stat.PlayerStatEntity;
 import com.gammy.repository.stat.GameStatRepository;
 import com.gammy.repository.PlayerRepository;
 import com.gammy.repository.stat.PlayerStatRepository;
+import io.micronaut.data.model.Sort;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +28,19 @@ public class StatService {
     private final PlayerStatRepository playerStatRepository;
 
     private final PlayerRepository playerRepository;
+
+    public List<PlayerStatEntity> getOrderedGameStatScores(String apiName, LeaderboardSortMethod sortMethod) {
+        Sort sort = switch (sortMethod) {
+            case ASCENDING -> Sort.of(Sort.Order.asc("value"));
+            case DESCENDING -> Sort.of(Sort.Order.desc("value"));
+        };
+
+        return this.playerStatRepository.findByGameStatApiName(apiName, sort);
+    }
+
+    public Optional<GameStatEntity> findByApiName(String apiName) {
+        return gameStatRepository.findByApiName(apiName);
+    }
 
     public List<GameStatEntity> getGameStats() {
         return gameStatRepository.findAll();
@@ -72,7 +88,7 @@ public class StatService {
                 .collect(Collectors.toList());
     }
 
-    public PlayerStatEntity updatePlayerStat(Long playerId, String apiName, BigDecimal value) {
+    public PlayerStatEntity updatePlayerStat(Long playerId, String apiName, BigDecimal value, PlayerGameStatUpdateMethod updateMethod) {
         Optional<PlayerStatEntity> optionalPlayerStatEntity = this.getPlayerStat(playerId, apiName);
 
         if (optionalPlayerStatEntity.isEmpty()) {
@@ -82,6 +98,12 @@ public class StatService {
         PlayerStatEntity playerStatEntity = optionalPlayerStatEntity.get();
 
         BigDecimal oldValue = playerStatEntity.getValue();
+
+        switch (updateMethod) {
+            case PlayerGameStatUpdateMethod.LARGEST -> value = value.max(oldValue);
+            case PlayerGameStatUpdateMethod.LOWEST -> value = value.min(oldValue);
+            // case FORCE -> keep the value
+        }
 
         BigDecimal minValue = playerStatEntity.getGameStat().getMinValue();
         BigDecimal maxValue = playerStatEntity.getGameStat().getMaxValue();
