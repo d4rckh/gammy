@@ -1,8 +1,8 @@
 package com.gammy.controller;
 
-import com.gammy.service.PlayerService;
-import com.gammy.model.entity.PlayerEntity;
 import com.gammy.model.dto.PlayerRegistrationRequest;
+import com.gammy.model.entity.PlayerEntity;
+import com.gammy.service.PlayerService;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;

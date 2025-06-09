@@ -1,9 +1,9 @@
 package com.gammy.controller;
 
-import com.gammy.service.AuthorizationService;
 import com.gammy.model.entity.achievement.GameAchievementEntity;
 import com.gammy.model.entity.achievement.PlayerAchievementEntity;
 import com.gammy.service.AchievementService;
+import com.gammy.service.AuthorizationService;
 import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;

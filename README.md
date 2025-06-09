@@ -28,6 +28,7 @@ game stats:
 ```
 - update player stat with different update methods
 - validate player stat using min/max values, max change value and only increment
+- keep track of score changes
 
 achievements:
 - create game achievements
@@ -38,3 +39,11 @@ achievements:
 leaderboards:
 - dynamic leaderboards based on already created game stats
 - can be ascending or descending
+
+user reporting:
+- report players in-game
+- view reports for player or by player
+
+interaction tracking:
+- track interactions
+- track daily streaks for interactions

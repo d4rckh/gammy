@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1749495253978-1" author="andrei">
+        <createTable tableName="PlayerReportEntity">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_playerreportentity"/>
+            </column>
+            <column name="reporter_player_id" type="BIGINT"/>
+            <column name="reported_player_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749495253978-2" author="andrei">
+        <addForeignKeyConstraint baseColumnNames="reported_player_id" baseTableName="PlayerReportEntity"
+                                 constraintName="FK_PLAYERREPORTENTITY_ON_REPORTED_PLAYER" referencedColumnNames="id"
+                                 referencedTableName="PlayerEntity"/>
+    </changeSet>
+    <changeSet id="1749495253978-3" author="andrei">
+        <addForeignKeyConstraint baseColumnNames="reporter_player_id" baseTableName="PlayerReportEntity"
+                                 constraintName="FK_PLAYERREPORTENTITY_ON_REPORTER_PLAYER" referencedColumnNames="id"
+                                 referencedTableName="PlayerEntity"/>
+    </changeSet>
+
+</databaseChangeLog>

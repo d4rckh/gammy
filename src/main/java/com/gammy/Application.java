@@ -1,7 +1,7 @@
 package com.gammy;
 
-import org.slf4j.bridge.SLF4JBridgeHandler;
 import io.micronaut.runtime.Micronaut;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 
 public class Application {
 

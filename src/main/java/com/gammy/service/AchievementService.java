@@ -7,14 +7,16 @@ import com.gammy.repository.achievement.GameAchievementRepository;
 import com.gammy.repository.achievement.PlayerAchievementRepository;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
-
-import java.util.*;
-import java.util.stream.Collectors;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Singleton
@@ -67,7 +69,7 @@ public class AchievementService {
 
         if (
                 !Objects.isNull(gameAchievement.getUnlockExpression()) &&
-                this.executeAchievementCondition(gameAchievement.getUnlockExpression(), playerId, achievementApiName)) {
+                        this.executeAchievementCondition(gameAchievement.getUnlockExpression(), playerId, achievementApiName)) {
             return Optional.ofNullable(this.unlockPlayerAchievement(playerId, achievementApiName));
         }
 

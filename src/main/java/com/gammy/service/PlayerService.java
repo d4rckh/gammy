@@ -1,7 +1,7 @@
 package com.gammy.service;
 
-import com.gammy.model.entity.PlayerEntity;
 import com.gammy.model.dto.PlayerRegistrationRequest;
+import com.gammy.model.entity.PlayerEntity;
 import com.gammy.repository.PlayerRepository;
 import io.micronaut.security.authentication.AuthenticationException;
 import jakarta.inject.Singleton;

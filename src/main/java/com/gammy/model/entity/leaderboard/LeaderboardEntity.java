@@ -1,6 +1,5 @@
 package com.gammy.model.entity.leaderboard;
 
-import com.gammy.model.entity.PlayerEntity;
 import com.gammy.model.entity.stat.GameStatEntity;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;

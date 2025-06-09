@@ -1,9 +1,10 @@
 package com.gammy.controller;
 
-import com.gammy.service.AuthorizationService;
+import com.gammy.model.dto.PlayerGameStatUpdateRequest;
 import com.gammy.model.entity.stat.GameStatEntity;
 import com.gammy.model.entity.stat.PlayerStatEntity;
-import com.gammy.model.dto.PlayerGameStatUpdateRequest;
+import com.gammy.model.entity.stat.StatUpdateHistoryEntity;
+import com.gammy.service.AuthorizationService;
 import com.gammy.service.StatService;
 import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
@@ -36,6 +37,18 @@ public class StatController {
         authorizationService.throwIfCantReadPlayerId(playerId);
 
         return this.statService.getPlayerStats(playerId);
+    }
+
+    @Secured("ROLE_ADMIN")
+    @Get("player/{playerId}/{statApiName}/history")
+    public List<StatUpdateHistoryEntity> getPlayerStatHistory(@PathVariable Long playerId, @PathVariable String statApiName) {
+        return this.statService.getPlayStatHistory(playerId, statApiName);
+    }
+
+    @Secured("ROLE_ADMIN")
+    @Get("player/{playerId}/history")
+    public List<StatUpdateHistoryEntity> getPlayerStatHistory(@PathVariable Long playerId) {
+        return this.statService.getPlayStatHistory(playerId);
     }
 
     @Secured(SecurityRule.IS_AUTHENTICATED)

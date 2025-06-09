@@ -1,21 +1,20 @@
 package com.gammy.authentication;
 
-import com.gammy.service.PlayerService;
 import com.gammy.model.entity.PlayerEntity;
+import com.gammy.service.PlayerService;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.security.authentication.AuthenticationRequest;
 import io.micronaut.security.authentication.AuthenticationResponse;
-import jakarta.inject.Singleton;
-import io.micronaut.core.annotation.Nullable;
 import io.micronaut.security.authentication.provider.HttpRequestReactiveAuthenticationProvider;
+import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
-import java.lang.reflect.MalformedParameterizedTypeException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -25,14 +24,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthenticationProviderUserPassword<B> implements HttpRequestReactiveAuthenticationProvider<B> {
 
-    private final PlayerService playerService;
-
     public static final String PLAYER_PREFIX = "player_";
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     public static final String ROLE_PLAYER = "ROLE_PLAYER";
-
     public static final String ADMIN_PASSWORD = "admin";
     public static final String ADMIN_USER = "admin";
+    private final PlayerService playerService;
 
     @Override
     public Publisher<AuthenticationResponse> authenticate(

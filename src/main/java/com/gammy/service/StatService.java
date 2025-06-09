@@ -1,14 +1,16 @@
 package com.gammy.service;
 
 import com.gammy.model.dto.PlayerGameStatUpdateMethod;
+import com.gammy.model.entity.PlayerEntity;
 import com.gammy.model.entity.leaderboard.LeaderboardSortMethod;
 import com.gammy.model.entity.stat.GameStatEntity;
 import com.gammy.model.entity.stat.GameStatType;
-import com.gammy.model.entity.PlayerEntity;
 import com.gammy.model.entity.stat.PlayerStatEntity;
-import com.gammy.repository.stat.GameStatRepository;
+import com.gammy.model.entity.stat.StatUpdateHistoryEntity;
 import com.gammy.repository.PlayerRepository;
+import com.gammy.repository.stat.GameStatRepository;
 import com.gammy.repository.stat.PlayerStatRepository;
+import com.gammy.repository.stat.StatUpdateHistoryRepository;
 import io.micronaut.data.model.Sort;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,7 @@ public class StatService {
     private final PlayerStatRepository playerStatRepository;
 
     private final PlayerRepository playerRepository;
+    private final StatUpdateHistoryRepository statUpdateHistoryRepository;
 
     public List<PlayerStatEntity> getOrderedGameStatScores(String apiName, LeaderboardSortMethod sortMethod) {
         Sort sort = switch (sortMethod) {
@@ -118,34 +121,51 @@ public class StatService {
 
         if (
                 onlyIncrement &&
-                    oldValue.compareTo(value) > 0
+                        oldValue.compareTo(value) > 0
         ) {
             throw new RuntimeException("Value must not be incremented");
         }
 
         if (
                 !Objects.isNull(minValue) &&
-                    minValue.compareTo(value) > 0
+                        minValue.compareTo(value) > 0
         ) {
             throw new RuntimeException("Value smaller than min value");
         }
 
         if (
                 !Objects.isNull(maxValue) &&
-                    maxValue.compareTo(value) < 0
+                        maxValue.compareTo(value) < 0
         ) {
             throw new RuntimeException("Value larger than max value");
         }
 
         if (
                 !Objects.isNull(maxInterval) &&
-                    oldValue.subtract(value).abs().compareTo(maxInterval) > 0
+                        oldValue.subtract(value).abs().compareTo(maxInterval) > 0
         ) {
             throw new RuntimeException("Value changed more than allowed interval");
         }
 
         playerStatEntity.setValue(value);
 
+        statUpdateHistoryRepository.save(
+                StatUpdateHistoryEntity.builder()
+                        .gameStat(playerStatEntity.getGameStat())
+                        .player(playerStatEntity.getPlayer())
+                        .newValue(value)
+                        .suspicious(false)
+                        .oldValue(oldValue).build()
+        );
+
         return playerStatRepository.update(playerStatEntity);
+    }
+
+    public List<StatUpdateHistoryEntity> getPlayStatHistory(Long playerId, String statApiName) {
+        return this.statUpdateHistoryRepository.findByPlayerIdAndGameStatApiName(playerId, statApiName);
+    }
+
+    public List<StatUpdateHistoryEntity> getPlayStatHistory(Long playerId) {
+        return this.statUpdateHistoryRepository.findByPlayerId(playerId);
     }
 }
