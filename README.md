@@ -1,4 +1,4 @@
-# **Gammy: Universal Game Backend Server**
+# **Gammy**
 
 Gammy is a **powerful and flexible universal backend server** designed to accelerate game development. Built with **Micronaut** and **Java 21**, it provides essential features like authentication, game statistics, achievements, leaderboards, user reporting, and interaction tracking, allowing you to focus on crafting engaging gameplay experiences.
 
