@@ -1,4 +1,4 @@
-# **Gammy: Universal Game Backend Server**
+# **Gammy**
 
 Gammy is a **powerful and flexible universal backend server** designed to accelerate game development. Built with **Micronaut** and **Java 21**, it provides essential features like authentication, game statistics, achievements, leaderboards, user reporting, and interaction tracking, allowing you to focus on crafting engaging gameplay experiences.
 
@@ -373,32 +373,3 @@ Gammy exposes a set of **RESTful endpoints**, typically accessible at localhost:
 - POST /interactions/track/{playerId}/{interactionApiName}: Records an interaction for a player.
 
 - GET /interactions/player/{playerId}: Retrieves all interaction data for a specific player.
-
-
-## **Getting Started**
-
-To get started with Gammy, you'll need **Java 21** and a build tool like **Maven** or **Gradle** installed.
-
-**1. Clone the repository:**
-
-git clone \[Your Repository URL Here]\
-cd gammy
-
-**2. Build the project:**
-
-\# Using Maven\
-./mvnw clean install\
-\
-\# Using Gradle\
-./gradlew clean build
-
-**3. Run the application:**
-
-\# Using Maven\
-./mvnw mn:run\
-\
-\# Using Gradle\
-./gradlew run
-
-The application will typically start on localhost:8080. You can then interact with the API endpoints using tools like Postman or curl.
-
