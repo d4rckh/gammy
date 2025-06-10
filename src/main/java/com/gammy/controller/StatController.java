@@ -27,7 +27,7 @@ public class StatController {
 
     @Secured("ROLE_ADMIN")
     @Post("game")
-    public GameStatEntity addGameStat(@Body GameStatEntity gameStat) {
+    public GameStatEntity createGameStat(@Body GameStatEntity gameStat) {
         return this.statService.createGameStat(gameStat);
     }
 
@@ -48,13 +48,13 @@ public class StatController {
     @Secured("ROLE_ADMIN")
     @Get("player/{playerId}/{statApiName}/history")
     public List<StatUpdateHistoryEntity> getPlayerStatHistory(@PathVariable Long playerId, @PathVariable String statApiName) {
-        return this.statService.getPlayStatHistory(playerId, statApiName);
+        return this.statService.getPlayerStatHistory(playerId, statApiName);
     }
 
     @Secured("ROLE_ADMIN")
     @Get("player/{playerId}/history")
     public List<StatUpdateHistoryEntity> getPlayerStatHistory(@PathVariable Long playerId) {
-        return this.statService.getPlayStatHistory(playerId);
+        return this.statService.getPlayerStatHistory(playerId);
     }
 
     @Secured(SecurityRule.IS_AUTHENTICATED)

@@ -31,7 +31,7 @@ public class LeaderboardController {
 
     @Get("{apiName}")
     @Secured(SecurityRule.IS_AUTHENTICATED)
-    LeaderboardEntries getLeaderboard(String apiName) {
+    LeaderboardEntries getLeaderboardEntries(String apiName) {
         return leaderboardService.getLeaderboardEntries(apiName);
     }
 }

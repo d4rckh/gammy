@@ -20,8 +20,8 @@ public class AchievementController {
 
     @Get("game")
     @Secured(SecurityRule.IS_AUTHENTICATED)
-    List<GameAchievementEntity> gameAchievements() {
-        return this.achievementService.getAllAchievements();
+    List<GameAchievementEntity> getGameAchievements() {
+        return this.achievementService.getGameAchievements();
     }
 
     @Post("game")
@@ -38,10 +38,10 @@ public class AchievementController {
 
     @Get("player/{playerId}")
     @Secured(SecurityRule.IS_AUTHENTICATED)
-    Map<String, Boolean> playerAchievements(@PathVariable Long playerId) {
+    Map<String, Boolean> getAchievementStatusForPlayer(@PathVariable Long playerId) {
         authorizationService.throwIfCantReadPlayerId(playerId);
 
-        return this.achievementService.getAchievementsByPlayer(playerId);
+        return this.achievementService.getAchievementStatusForPlayer(playerId);
     }
 
     @Post("player/{playerId}/{apiName}")
@@ -54,7 +54,7 @@ public class AchievementController {
 
     @Delete("player/{playerId}/{apiName}")
     @Secured(SecurityRule.IS_AUTHENTICATED)
-    void deletePlayerAchievement(@PathVariable Long playerId, @PathVariable String apiName) {
+    void removePlayerAchievement(@PathVariable Long playerId, @PathVariable String apiName) {
         authorizationService.throwIfCantWritePlayerId(playerId);
 
         this.achievementService.removePlayerAchievement(playerId, apiName);

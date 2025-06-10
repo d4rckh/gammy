@@ -27,13 +27,13 @@ public class PlayerReportController {
 
     @Get("by/{playerId}")
     @Secured("ROLE_ADMIN")
-    List<PlayerReportEntity> reportByPlayerId(@PathVariable("playerId") Long playerId) {
+    List<PlayerReportEntity> getReportsBy(@PathVariable("playerId") Long playerId) {
         return this.reportService.getReportsBy(playerId);
     }
 
     @Get("for/{playerId}")
     @Secured("ROLE_ADMIN")
-    List<PlayerReportEntity> reportForPlayerId(@PathVariable("playerId") Long playerId) {
+    List<PlayerReportEntity> getReportsFor(@PathVariable("playerId") Long playerId) {
         return this.reportService.getReportsFor(playerId);
     }
 }

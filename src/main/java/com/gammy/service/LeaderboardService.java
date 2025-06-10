@@ -38,10 +38,10 @@ public class LeaderboardService {
         return leaderboardRepository.update(leaderboardEntity);
     }
 
-    public LeaderboardEntries getLeaderboardEntries(String apiName) {
-        LeaderboardEntity leaderboardEntity = this.leaderboardRepository.findByApiName(apiName).orElseThrow();
+    public LeaderboardEntries getLeaderboardEntries(String leaderboardApiName) {
+        LeaderboardEntity leaderboardEntity = this.leaderboardRepository.findByApiName(leaderboardApiName).orElseThrow();
 
-        List<PlayerStatEntity> playerStatEntities = this.statService.getOrderedGameStatScores(apiName, leaderboardEntity.getSortMethod());
+        List<PlayerStatEntity> playerStatEntities = this.statService.getOrderedGameStatScores(leaderboardApiName, leaderboardEntity.getSortMethod());
 
         List<LeaderboardEntry> entries = IntStream.range(0, playerStatEntities.size())
                 .mapToObj(i -> {

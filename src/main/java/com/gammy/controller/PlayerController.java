@@ -20,13 +20,13 @@ public class PlayerController {
 
     @Get
     @Secured("ROLE_ADMIN")
-    public List<PlayerEntity> players() {
+    public List<PlayerEntity> findAll() {
         return playerService.findAll();
     }
 
     @Post
     @Secured(SecurityRule.IS_ANONYMOUS)
-    public PlayerEntity newPlayer(@Body PlayerRegistrationRequest playerRegistrationRequest) {
-        return this.playerService.newPlayer(playerRegistrationRequest);
+    public PlayerEntity createPlayer(@Body PlayerRegistrationRequest playerRegistrationRequest) {
+        return this.playerService.createPlayer(playerRegistrationRequest);
     }
 }

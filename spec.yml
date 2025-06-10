@@ -5,10 +5,10 @@ info:
 paths:
   /achievements/game:
     get:
-      operationId: gameAchievements
+      operationId: getGameAchievements
       responses:
         "200":
-          description: gameAchievements 200 response
+          description: getGameAchievements 200 response
           content:
             application/json:
               schema:
@@ -47,7 +47,7 @@ paths:
                 $ref: "#/components/schemas/GameAchievementEntity"
   /achievements/player/{playerId}:
     get:
-      operationId: playerAchievements
+      operationId: getAchievementStatusForPlayer
       parameters:
       - name: playerId
         in: path
@@ -57,7 +57,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: playerAchievements 200 response
+          description: getAchievementStatusForPlayer 200 response
           content:
             application/json:
               schema:
@@ -87,7 +87,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/PlayerAchievementEntity"
     delete:
-      operationId: deletePlayerAchievement
+      operationId: removePlayerAchievement
       parameters:
       - name: playerId
         in: path
@@ -102,7 +102,7 @@ paths:
           type: string
       responses:
         "200":
-          description: deletePlayerAchievement 200 response
+          description: removePlayerAchievement 200 response
   /interactions/player/{playerId}:
     get:
       operationId: getPlayerInteractions
@@ -146,10 +146,10 @@ paths:
                 $ref: "#/components/schemas/PlayerInteractionEntity"
   /interactions/type:
     get:
-      operationId: getAllInteractionTypes
+      operationId: getGameInteractions
       responses:
         "200":
-          description: getAllInteractionTypes 200 response
+          description: getGameInteractions 200 response
           content:
             application/json:
               schema:
@@ -157,7 +157,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/GameInteractionEntity"
     put:
-      operationId: updateInteractionType
+      operationId: updateGameInteraction
       requestBody:
         content:
           application/json:
@@ -166,13 +166,13 @@ paths:
         required: true
       responses:
         "200":
-          description: updateInteractionType 200 response
+          description: updateGameInteraction 200 response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/GameInteractionEntity"
     post:
-      operationId: createInteractionType
+      operationId: createInteraction
       requestBody:
         content:
           application/json:
@@ -181,14 +181,14 @@ paths:
         required: true
       responses:
         "200":
-          description: createInteractionType 200 response
+          description: createInteraction 200 response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/GameInteractionEntity"
   /interactions/type/{apiName}:
     get:
-      operationId: getInteractionsByType
+      operationId: getInteractionsByApiName
       parameters:
       - name: apiName
         in: path
@@ -197,7 +197,7 @@ paths:
           type: string
       responses:
         "200":
-          description: getInteractionsByType 200 response
+          description: getInteractionsByApiName 200 response
           content:
             application/json:
               schema:
@@ -225,7 +225,7 @@ paths:
                 $ref: "#/components/schemas/LeaderboardEntity"
   /leaderboards/{apiName}:
     get:
-      operationId: getLeaderboard
+      operationId: getLeaderboardEntries
       parameters:
       - name: apiName
         in: path
@@ -234,17 +234,17 @@ paths:
           type: string
       responses:
         "200":
-          description: getLeaderboard 200 response
+          description: getLeaderboardEntries 200 response
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/LeaderboardEntries"
   /players:
     get:
-      operationId: players
+      operationId: findAll
       responses:
         "200":
-          description: players 200 response
+          description: findAll 200 response
           content:
             application/json:
               schema:
@@ -252,7 +252,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/PlayerEntity"
     post:
-      operationId: newPlayer
+      operationId: createPlayer
       requestBody:
         content:
           application/json:
@@ -261,7 +261,7 @@ paths:
         required: true
       responses:
         "200":
-          description: newPlayer 200 response
+          description: createPlayer 200 response
           content:
             application/json:
               schema:
@@ -284,7 +284,7 @@ paths:
                 $ref: "#/components/schemas/PlayerReportEntity"
   /reports/by/{playerId}:
     get:
-      operationId: reportByPlayerId
+      operationId: getReportsBy
       parameters:
       - name: playerId
         in: path
@@ -294,7 +294,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: reportByPlayerId 200 response
+          description: getReportsBy 200 response
           content:
             application/json:
               schema:
@@ -303,7 +303,7 @@ paths:
                   $ref: "#/components/schemas/PlayerReportEntity"
   /reports/for/{playerId}:
     get:
-      operationId: reportForPlayerId
+      operationId: getReportsFor
       parameters:
       - name: playerId
         in: path
@@ -313,7 +313,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: reportForPlayerId 200 response
+          description: getReportsFor 200 response
           content:
             application/json:
               schema:
@@ -348,7 +348,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/GameStatEntity"
     post:
-      operationId: addGameStat
+      operationId: createGameStat
       requestBody:
         content:
           application/json:
@@ -357,7 +357,7 @@ paths:
         required: true
       responses:
         "200":
-          description: addGameStat 200 response
+          description: createGameStat 200 response
           content:
             application/json:
               schema:

@@ -69,11 +69,11 @@ public class InteractionService {
         return this.gameInteractionRepository.findAll();
     }
 
-    public GameInteractionEntity createGameInteractionType(GameInteractionEntity gameInteractionEntity) {
+    public GameInteractionEntity createGameInteraction(GameInteractionEntity gameInteractionEntity) {
         return this.gameInteractionRepository.save(gameInteractionEntity);
     }
 
-    public GameInteractionEntity updateGameInteractionType(GameInteractionEntity gameInteractionEntity) {
+    public GameInteractionEntity updateGameInteraction(GameInteractionEntity gameInteractionEntity) {
         return this.gameInteractionRepository.update(gameInteractionEntity);
     }
 }

@@ -19,7 +19,7 @@ public class InteractionController {
 
     @Post("track/{playerId}/{interactionApiName}")
     @Secured(SecurityRule.IS_AUTHENTICATED)
-    public PlayerInteractionEntity trackInteraction(
+    PlayerInteractionEntity trackInteraction(
             @PathVariable Long playerId,
             @PathVariable String interactionApiName
     ) {
@@ -30,31 +30,31 @@ public class InteractionController {
 
     @Get("player/{playerId}")
     @Secured("ROLE_ADMIN")
-    public List<PlayerInteractionEntity> getPlayerInteractions(@PathVariable Long playerId) {
+    List<PlayerInteractionEntity> getPlayerInteractions(@PathVariable Long playerId) {
         return interactionService.getPlayerInteractions(playerId);
     }
 
     @Get("type/{apiName}")
     @Secured("ROLE_ADMIN")
-    public List<PlayerInteractionEntity> getInteractionsByType(@PathVariable String apiName) {
+    List<PlayerInteractionEntity> getInteractionsByApiName(@PathVariable String apiName) {
         return interactionService.getInteractionsByApiName(apiName);
     }
 
     @Get("type")
     @Secured("ROLE_ADMIN")
-    public List<GameInteractionEntity> getAllInteractionTypes() {
+    List<GameInteractionEntity> getGameInteractions() {
         return interactionService.getGameInteractions();
     }
 
     @Post("type")
     @Secured("ROLE_ADMIN")
-    public GameInteractionEntity createInteractionType(@Body GameInteractionEntity gameInteractionEntity) {
-        return interactionService.createGameInteractionType(gameInteractionEntity);
+    GameInteractionEntity createInteraction(@Body GameInteractionEntity gameInteractionEntity) {
+        return interactionService.createGameInteraction(gameInteractionEntity);
     }
 
     @Put("type")
     @Secured("ROLE_ADMIN")
-    public GameInteractionEntity updateInteractionType(@Body GameInteractionEntity gameInteractionEntity) {
-        return interactionService.updateGameInteractionType(gameInteractionEntity);
+    GameInteractionEntity updateGameInteraction(@Body GameInteractionEntity gameInteractionEntity) {
+        return interactionService.updateGameInteraction(gameInteractionEntity);
     }
 }

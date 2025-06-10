@@ -32,12 +32,12 @@ public class AchievementService {
         return gameAchievementRepository.save(gameAchievementEntity);
     }
 
-    public List<GameAchievementEntity> getAllAchievements() {
+    public List<GameAchievementEntity> getGameAchievements() {
         return gameAchievementRepository.findAll();
     }
 
-    public Map<String, Boolean> getAchievementsByPlayer(Long playerId) {
-        return this.getAllAchievements().stream()
+    public Map<String, Boolean> getAchievementStatusForPlayer(Long playerId) {
+        return this.getGameAchievements().stream()
                 .collect(Collectors.toMap(
                         GameAchievementEntity::getApiName,
                         achievement ->
@@ -45,7 +45,7 @@ public class AchievementService {
                 ));
     }
 
-    private boolean executeAchievementCondition(String expression, Long playerId, String achievementApiName) {
+    private boolean evaluateAchievementCondition(String expression, Long playerId, String achievementApiName) {
         ExpressionParser parser = new SpelExpressionParser();
         StandardEvaluationContext context = new StandardEvaluationContext();
 
@@ -69,7 +69,7 @@ public class AchievementService {
 
         if (
                 !Objects.isNull(gameAchievement.getUnlockExpression()) &&
-                        this.executeAchievementCondition(gameAchievement.getUnlockExpression(), playerId, achievementApiName)) {
+                        this.evaluateAchievementCondition(gameAchievement.getUnlockExpression(), playerId, achievementApiName)) {
             return Optional.ofNullable(this.unlockPlayerAchievement(playerId, achievementApiName));
         }
 

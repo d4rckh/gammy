@@ -161,11 +161,11 @@ public class StatService {
         return playerStatRepository.update(playerStatEntity);
     }
 
-    public List<StatUpdateHistoryEntity> getPlayStatHistory(Long playerId, String statApiName) {
+    public List<StatUpdateHistoryEntity> getPlayerStatHistory(Long playerId, String statApiName) {
         return this.statUpdateHistoryRepository.findByPlayerIdAndGameStatApiName(playerId, statApiName);
     }
 
-    public List<StatUpdateHistoryEntity> getPlayStatHistory(Long playerId) {
+    public List<StatUpdateHistoryEntity> getPlayerStatHistory(Long playerId) {
         return this.statUpdateHistoryRepository.findByPlayerId(playerId);
     }
 

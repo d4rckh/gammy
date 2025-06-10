@@ -29,7 +29,7 @@ public class PlayerService {
         return playerRepository.findAll();
     }
 
-    public PlayerEntity newPlayer(PlayerRegistrationRequest playerRegistrationRequest) {
+    public PlayerEntity createPlayer(PlayerRegistrationRequest playerRegistrationRequest) {
         if (this.findByUsername(playerRegistrationRequest.getUsername()).isPresent()) {
             throw new AuthenticationException("Username is already in use");
         }
