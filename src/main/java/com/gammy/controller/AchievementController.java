@@ -30,6 +30,12 @@ public class AchievementController {
         return this.achievementService.createAchievement(achievement);
     }
 
+    @Put("game")
+    @Secured("ROLE_ADMIN")
+    GameAchievementEntity updateAchievement(@Body GameAchievementEntity achievement) {
+        return this.achievementService.updateAchievement(achievement);
+    }
+
     @Get("player/{playerId}")
     @Secured(SecurityRule.IS_AUTHENTICATED)
     Map<String, Boolean> playerAchievements(@PathVariable Long playerId) {

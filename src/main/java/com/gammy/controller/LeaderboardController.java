@@ -23,6 +23,12 @@ public class LeaderboardController {
         return leaderboardService.createLeaderboard(leaderboardCreateRequest);
     }
 
+    @Post
+    @Secured("ROLE_ADMIN")
+    LeaderboardEntity updateLeaderboard(@Body LeaderboardEntity leaderboardEntity) {
+        return leaderboardService.updateLeaderboard(leaderboardEntity);
+    }
+
     @Get("{apiName}")
     @Secured(SecurityRule.IS_AUTHENTICATED)
     LeaderboardEntries getLeaderboard(String apiName) {

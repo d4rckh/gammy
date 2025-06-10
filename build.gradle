@@ -29,6 +29,8 @@ dependencies {
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
     implementation("org.mindrot:jbcrypt:0.4")
     implementation 'org.springframework:spring-expression:6.0.10'
+    annotationProcessor("io.micronaut.openapi:micronaut-openapi")
+    compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
 
     implementation("io.micronaut.data:micronaut-data-processor")
 

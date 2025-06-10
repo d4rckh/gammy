@@ -168,4 +168,8 @@ public class StatService {
     public List<StatUpdateHistoryEntity> getPlayStatHistory(Long playerId) {
         return this.statUpdateHistoryRepository.findByPlayerId(playerId);
     }
+
+    public GameStatEntity updateGameStat(GameStatEntity gameStat) {
+        return this.gameStatRepository.update(gameStat);
+    }
 }

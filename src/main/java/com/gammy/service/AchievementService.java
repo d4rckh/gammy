@@ -96,4 +96,8 @@ public class AchievementService {
                 this.getPlayerAchievement(playerId, achievementApiName).orElseThrow()
         );
     }
+
+    public GameAchievementEntity updateAchievement(GameAchievementEntity achievement) {
+        return this.gameAchievementRepository.update(achievement);
+    }
 }

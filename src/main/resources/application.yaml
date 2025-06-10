@@ -7,6 +7,10 @@ micronaut:
   application:
     name: gammy
 
+  openapi:
+    target:
+      file: spec.yml
+
   session:
     http:
       header: true

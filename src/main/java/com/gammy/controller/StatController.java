@@ -31,6 +31,12 @@ public class StatController {
         return this.statService.createGameStat(gameStat);
     }
 
+    @Secured("ROLE_ADMIN")
+    @Put("game")
+    public GameStatEntity updateGameStat(@Body GameStatEntity gameStat) {
+        return this.statService.updateGameStat(gameStat);
+    }
+
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @Get("player/{playerId}")
     public List<PlayerStatEntity> getPlayerStats(@PathVariable Long playerId) {

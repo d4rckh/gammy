@@ -16,7 +16,6 @@ import java.util.List;
 @Controller("players")
 @RequiredArgsConstructor
 public class PlayerController {
-
     private final PlayerService playerService;
 
     @Get

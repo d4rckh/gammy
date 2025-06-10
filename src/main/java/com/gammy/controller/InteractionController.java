@@ -51,4 +51,10 @@ public class InteractionController {
     public GameInteractionEntity createInteractionType(@Body GameInteractionEntity gameInteractionEntity) {
         return interactionService.createGameInteractionType(gameInteractionEntity);
     }
+
+    @Put("type")
+    @Secured("ROLE_ADMIN")
+    public GameInteractionEntity updateInteractionType(@Body GameInteractionEntity gameInteractionEntity) {
+        return interactionService.updateGameInteractionType(gameInteractionEntity);
+    }
 }

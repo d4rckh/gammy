@@ -72,4 +72,8 @@ public class InteractionService {
     public GameInteractionEntity createGameInteractionType(GameInteractionEntity gameInteractionEntity) {
         return this.gameInteractionRepository.save(gameInteractionEntity);
     }
+
+    public GameInteractionEntity updateGameInteractionType(GameInteractionEntity gameInteractionEntity) {
+        return this.gameInteractionRepository.update(gameInteractionEntity);
+    }
 }
