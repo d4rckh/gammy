@@ -20,7 +20,7 @@ export default function LayoutWrapper({ children }: { children: ReactNode }) {
   useLoginAsAdmin();
 
   return (
-    <div className="max-w-7xl mx-auto my-3 px-4">
+    <div className="max-w-5xl mx-auto my-3 px-4">
       <nav className="flex flex-wrap items-center gap-2 mb-4">
         <div className="font-black text-lg mr-2">Gammy</div>
 
