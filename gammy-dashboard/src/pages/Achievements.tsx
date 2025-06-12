@@ -4,7 +4,7 @@ import CreateOrEditAchievementDialog from "@/components/achievements/CreateOrEdi
 
 export default function Achievements() {
   return <>
-    <PageTitle title="Achievements" />
+    <PageTitle title="Achievements" description="Here you can manage the achievements for your game." />
 
     <CreateOrEditAchievementDialog />
 

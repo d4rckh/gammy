@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import useLoginAsAdmin from "../lib/api/queries";
 import { Button } from "./ui/button";
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 import { ModeToggle } from "./ThemeToggle";
 import clsx from "clsx"; // optional: for cleaner conditional classNames
 
@@ -20,9 +20,9 @@ export default function LayoutWrapper({ children }: { children: ReactNode }) {
   useLoginAsAdmin();
 
   return (
-    <div className="max-w-5xl mx-auto my-3 px-4">
+    <div className="max-w-6xl mx-auto my-3 px-4">
       <nav className="flex flex-wrap items-center gap-2 mb-4">
-        <div className="font-black text-lg mr-2">Gammy</div>
+        <div className="font-black text-xl mr-2 text-primary">Gammy</div>
 
         {NAV_ITEMS.map(({ label, to }) => (
           <NavLink key={to} to={to}>
@@ -37,10 +37,10 @@ export default function LayoutWrapper({ children }: { children: ReactNode }) {
               </Button>
             )}
           </NavLink>
-
         ))}
 
         <div className="flex-1" />
+
 
         <div className="font-black">
           <ModeToggle />

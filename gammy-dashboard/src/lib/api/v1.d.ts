@@ -52,6 +52,38 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/analytics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getGameAnalytics"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/analytics/stat/{apiName}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getStatAnalytics"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/interactions": {
         parameters: {
             query?: never;
@@ -400,6 +432,20 @@ export interface components {
             description?: string;
             unlockExpression?: string | null;
         };
+        GameAnalytics: {
+            /** Format: int64 */
+            totalPlayers: number;
+            /** Format: int64 */
+            totalAchievements: number;
+            /** Format: int64 */
+            totalReports: number;
+            interactionsCount: {
+                [key: string]: number;
+            };
+            achievementsUnlockCount: {
+                [key: string]: number;
+            };
+        };
         GameInteractionEntity: {
             /** Format: int64 */
             id?: number | null;
@@ -533,6 +579,20 @@ export interface components {
             /** Format: int64 */
             reportedPlayerId: number;
             text: string;
+        };
+        StatAnalytics: {
+            /** Format: int64 */
+            totalNonDefaultEntries: number;
+            /** Format: float */
+            averageValue: number;
+            /** Format: float */
+            standardDeviation: number;
+            distributionOfValues: {
+                [key: string]: number;
+            };
+            mostCommonValue: number;
+            /** Format: float */
+            percentAboveAverage: number;
         };
         StatUpdateHistoryEntity: {
             /** Format: int64 */
@@ -709,6 +769,48 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    getGameAnalytics: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description getGameAnalytics 200 response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameAnalytics"];
+                };
+            };
+        };
+    };
+    getStatAnalytics: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                apiName: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description getStatAnalytics 200 response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StatAnalytics"];
+                };
             };
         };
     };
@@ -1157,9 +1259,7 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "application/json": components["schemas"]["PlayerParameterOverrideEntity"];
-                };
+                content?: never;
             };
         };
     };

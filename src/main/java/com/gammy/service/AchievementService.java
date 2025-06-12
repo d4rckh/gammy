@@ -28,6 +28,22 @@ public class AchievementService {
     private final PlayerService playerService;
     private final StatService statService;
 
+    public Map<String, Long> getAchievementsUnlockCount() {
+        return this.getGameAchievements()
+                .stream()
+                .collect(
+                        Collectors.toMap(
+                                GameAchievementEntity::getApiName,
+                                ach ->
+                                        this.playerAchievementRepository.countByGameAchievementApiName(ach.getApiName())
+                        )
+                );
+    }
+
+    public long getAchievementsCount() {
+        return gameAchievementRepository.count();
+    }
+
     public GameAchievementEntity createAchievement(GameAchievementEntity gameAchievementEntity) {
         return gameAchievementRepository.save(gameAchievementEntity);
     }

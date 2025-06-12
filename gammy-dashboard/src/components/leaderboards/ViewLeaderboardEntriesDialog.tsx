@@ -10,7 +10,7 @@ export default function ViewLeaderboardEntriesDialog({ apiName }: { apiName: str
   return <>
     <Dialog>
       <DialogTrigger asChild>
-        <Button size={"sm"}>Entries</Button>
+        <Button variant={"outline"} size={"sm"}>Entries</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>Leaderboard Entries</DialogTitle>
@@ -25,14 +25,14 @@ export default function ViewLeaderboardEntriesDialog({ apiName }: { apiName: str
           </TableHeader>
           <TableBody>
             {
-              leaderboardEntries.data && 
-                leaderboardEntries.data.entries.map(entry => 
-                  <TableRow>
-                    <TableCell>{entry.rank}</TableCell>
-                    <TableCell>{entry.player.username}</TableCell>
-                    <TableCell>{entry.value}</TableCell>
-                  </TableRow>
-                )
+              leaderboardEntries.data &&
+              leaderboardEntries.data.entries.map(entry =>
+                <TableRow>
+                  <TableCell>{entry.rank}</TableCell>
+                  <TableCell>{entry.player.username}</TableCell>
+                  <TableCell>{entry.value}</TableCell>
+                </TableRow>
+              )
             }
           </TableBody>
         </Table>

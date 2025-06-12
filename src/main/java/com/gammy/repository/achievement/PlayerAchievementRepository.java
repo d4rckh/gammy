@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface PlayerAchievementRepository extends CrudRepository<PlayerAchievementEntity, Integer> {
     Optional<PlayerAchievementEntity> findByPlayerIdAndGameAchievementApiName(Long playerId, String gameAchievementApiName);
+    Long countByGameAchievementApiName(String gameAchievementApiName);
 }

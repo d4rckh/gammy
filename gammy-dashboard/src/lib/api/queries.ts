@@ -206,3 +206,23 @@ export function usePlayer(playerId: number) {
     enabled: user.isSuccess
   })
 }
+
+export function useGameAnalytics() {
+  const user = useUserQuery();
+
+  return $api.useQuery("get", "/analytics", undefined, {
+    enabled: user.isSuccess
+  })
+}
+
+export function useStatAnalytics(apiName: string) {
+  const user = useUserQuery();
+
+  return $api.useQuery("get", "/analytics/stat/{apiName}", {
+    params: {
+      path: { apiName }
+    }
+  }, {
+    enabled: user.isSuccess
+  })
+}

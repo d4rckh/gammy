@@ -46,4 +46,8 @@ public class PlayerReportService {
     public List<PlayerReportEntity> getReports() {
         return playerReportRepository.findAll();
     }
+
+    public long getReportsCount() {
+        return playerReportRepository.count();
+    }
 }

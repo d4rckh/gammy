@@ -4,7 +4,7 @@ import CreateOrEditLeaderboardDialog from "@/components/leaderboards/CreateOrEdi
 
 export default function Leaderboards() {
   return <>
-    <PageTitle title="Leaderboards" />
+    <PageTitle title="Leaderboards" description="Here you can create leaderboards based on the already made game stats." />
 
     <CreateOrEditLeaderboardDialog />
 

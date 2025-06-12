@@ -17,6 +17,10 @@ public class PlayerService {
 
     private final PlayerRepository playerRepository;
 
+    public long getPlayerCount() {
+        return this.playerRepository.count();
+    }
+
     public Optional<PlayerEntity> findById(Long id) {
         return playerRepository.findById(id);
     }

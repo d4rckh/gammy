@@ -2,6 +2,10 @@ import { useGameStats, usePlayersQuery } from "@/lib/api/queries"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
 import CreateOrEditStatDialog from "./stats/CreateOrEditStatDialog";
 import DeleteStatsButton from "./stats/DeleteStatsButton";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { Button } from "./ui/button";
+import StatsAnalytics from "./stats/StatsAnalytics";
+import { NavLink } from "react-router";
 
 export default function GameStatsList() {
   const gameStats = useGameStats();
@@ -38,6 +42,9 @@ export default function GameStatsList() {
               <TableCell>{stat.maxChange}</TableCell>
               <TableCell>{stat.onlyIncrement ? "yes" : "no"}</TableCell>
               <TableCell className="flex flex-wrap gap-2">
+                <NavLink to={`/stats/${stat.apiName}`}>
+                  <Button variant={"outline"} size={"sm"}>Analytics</Button>
+                </NavLink>
                 <CreateOrEditStatDialog stat={stat} />
                 <DeleteStatsButton stat={stat} />
               </TableCell>

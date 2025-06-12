@@ -26,7 +26,7 @@ export default function PlayersList() {
               <TableCell>{player.username}</TableCell>
               <TableCell className="flex gap-2 flex-wrap">
                 <NavLink to={`/players/${player.id}`}>
-                  <Button size={"sm"}>View player</Button>
+                  <Button variant={"outline"} size={"sm"}>View player</Button>
                 </NavLink>
                 <BanPlayerButton player={player} />
               </TableCell>

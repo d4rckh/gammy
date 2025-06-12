@@ -15,6 +15,7 @@ import GameParameters from './pages/GameParameters.tsx'
 import Players from './pages/Players.tsx'
 import Player from './pages/Player.tsx'
 import { ThemeProvider } from "@/components/themeProvider.tsx"
+import Stat from './pages/Stat.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -32,6 +33,7 @@ createRoot(document.getElementById('root')!).render(
               <Route path='/reports' element={<PlayerReports />} />
               <Route path='/players' element={<Players />} />
               <Route path='/players/:playerId' element={<Player />} />
+              <Route path='/stats/:apiName' element={<Stat />} />
             </Routes>
           </LayoutWrapper>
         </ThemeProvider>

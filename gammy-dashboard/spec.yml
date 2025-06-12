@@ -114,6 +114,32 @@ paths:
       responses:
         "200":
           description: removePlayerAchievement 200 response
+  /analytics:
+    get:
+      operationId: getGameAnalytics
+      responses:
+        "200":
+          description: getGameAnalytics 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameAnalytics"
+  /analytics/stat/{apiName}:
+    get:
+      operationId: getStatAnalytics
+      parameters:
+      - name: apiName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: getStatAnalytics 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatAnalytics"
   /interactions:
     get:
       operationId: getInteractions
@@ -730,6 +756,34 @@ components:
         unlockExpression:
           type: string
           nullable: true
+    GameAnalytics:
+      required:
+      - achievementsUnlockCount
+      - interactionsCount
+      - totalAchievements
+      - totalPlayers
+      - totalReports
+      type: object
+      properties:
+        totalPlayers:
+          type: integer
+          format: int64
+        totalAchievements:
+          type: integer
+          format: int64
+        totalReports:
+          type: integer
+          format: int64
+        interactionsCount:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        achievementsUnlockCount:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
     GameInteractionEntity:
       type: object
       properties:
@@ -999,6 +1053,35 @@ components:
           format: int64
         text:
           type: string
+    StatAnalytics:
+      required:
+      - averageValue
+      - distributionOfValues
+      - mostCommonValue
+      - percentAboveAverage
+      - standardDeviation
+      - totalNonDefaultEntries
+      type: object
+      properties:
+        totalNonDefaultEntries:
+          type: integer
+          format: int64
+        averageValue:
+          type: number
+          format: float
+        standardDeviation:
+          type: number
+          format: float
+        distributionOfValues:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        mostCommonValue:
+          type: number
+        percentAboveAverage:
+          type: number
+          format: float
     StatUpdateHistoryEntity:
       required:
       - gameStat

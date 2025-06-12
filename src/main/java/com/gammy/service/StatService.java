@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Singleton
 @RequiredArgsConstructor
@@ -31,6 +32,10 @@ public class StatService {
 
     private final PlayerRepository playerRepository;
     private final StatUpdateHistoryRepository statUpdateHistoryRepository;
+
+    public Stream<PlayerStatEntity> streamByGameStatApiName(String apiName) {
+        return this.playerStatRepository.streamByGameStatApiName(apiName);
+    }
 
     public List<PlayerStatEntity> getOrderedGameStatScores(String apiName, LeaderboardSortMethod sortMethod) {
         Sort sort = switch (sortMethod) {

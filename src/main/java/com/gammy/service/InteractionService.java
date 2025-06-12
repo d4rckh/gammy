@@ -13,7 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Singleton
@@ -87,5 +89,20 @@ public class InteractionService {
 
     public List<PlayerInteractionEntity> getInteractions() {
         return this.playerInteractionRepository.findAll();
+    }
+
+    public long getInteractionsCount() {
+        return this.playerInteractionRepository.count();
+    }
+
+    public Map<String, Long> getInteractionsCountByApiName() {
+        return this.getGameInteractions()
+                .stream().collect(
+                        Collectors.toMap(
+                                GameInteractionEntity::getApiName,
+                                interaction ->
+                                        this.playerInteractionRepository.countByGameInteractionApiName(interaction.getApiName())
+                        )
+                );
     }
 }

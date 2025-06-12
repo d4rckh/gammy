@@ -20,4 +20,6 @@ public interface PlayerInteractionRepository extends CrudRepository<PlayerIntera
     List<PlayerInteractionEntity> findAllByGameInteractionApiName(String gameInteractionApiName);
 
     List<PlayerInteractionEntity> findAllByPlayerId(Long playerId);
+
+    Long countByGameInteractionApiName(String gameInteractionApiName);
 }
