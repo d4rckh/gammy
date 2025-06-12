@@ -1,95 +1,102 @@
 # 🎮 Gammy – Server Universal de Backend pentru Jocuri
 
-**Gammy** este un server backend universal, puternic și flexibil, construit cu **Micronaut** și **Java 21**, conceput pentru a accelera dezvoltarea jocurilor. Oferă funcționalități robuste, gata de utilizare, precum autentificare, urmărirea statisticilor jocului, realizări, clasamente, raportarea jucătorilor și urmărirea interacțiunilor — permițându-ți să te concentrezi pe crearea unor experiențe captivante de joc.
+**Gammy** este un server backend universal, puternic și flexibil, construit cu **Micronaut** și **Java 21**, conceput pentru a accelera dezvoltarea jocurilor. Oferă funcționalități robuste, gata de utilizare, precum autentificare, urmărire statistici, realizări, clasamente, raportare jucători și urmărirea interacțiunilor — astfel încât tu să te poți concentra pe crearea unor experiențe de joc captivante.
 
 ---
 
 ## 📸 Capturi de ecran
 
-| Jucători | Realizări | Clasamente |
-|----------|-----------|------------|
+| Pagina Principală                              |
+|------------------------------------------------|
+| ![Pagina Principală](screenshots/mainpage.png) |
+
+| Jucători                             | Realizări                                  | Clasamente                                  |
+|--------------------------------------|--------------------------------------------|---------------------------------------------|
 | ![Jucători](screenshots/players.png) | ![Realizări](screenshots/achievements.png) | ![Clasamente](screenshots/leaderboards.png) |
 
-| Intrări Clasament | Parametri | Rapoarte |
-|-------------------|-----------|----------|
-| ![Intrări](screenshots/leaderboards_entries.png) | ![Parametri](screenshots/parameters.png) | ![Rapoarte](screenshots/player_reports.png) |
+| Statistici Jucător                                  | Interacțiuni                                  | Rapoarte                                   |
+|-----------------------------------------------------|-----------------------------------------------|--------------------------------------------|
+| ![Statistici Jucător](screenshots/player_stats.png) | ![Interacțiuni](screenshots/interactions.png) | ![Rapoarte](screenshots/playerreports.png) |
 
-| Statistici | Interacțiuni |
-|------------|--------------|
-| ![Statistici](screenshots/stats.png) | ![Interacțiuni](screenshots/interactions.png) |
+| Parametri                                    | Parametri Calculați                                      | Analize Statistice                         |
+|----------------------------------------------|----------------------------------------------------------|--------------------------------------------|
+| ![Parametri](screenshots/gameparameters.png) | ![Calculați](screenshots/player_computed_parameters.png) | ![Analize](screenshots/stat_analytics.png) |
+
+| Interacțiuni Jucător                                         | Rapoarte Specifice                                             |
+|--------------------------------------------------------------|----------------------------------------------------------------|
+| ![Interacțiuni Jucător](screenshots/player_interactions.png) | ![Rapoarte Specifice](screenshots/specific_player_reports.png) |
 
 ---
 
 ## 🔐 Autentificare și Autorizare
 
 - **Autentificare Jucători și Admini**  
-  Autentificare sigură pentru utilizatori obișnuiți și administratori.
+  Autentificare securizată atât pentru jucători obișnuiți cât și pentru utilizatori administrativi.
 
-- **Crearea Profilului de Jucător**  
-  Creează și gestionează cu ușurință conturile și profilurile jucătorilor.
+- **Creare Profil Jucător**  
+  Creează și gestionează ușor conturile și profilurile jucătorilor.
 
-- **Validarea Permisiunilor**  
-  Verifică permisiunile utilizatorilor pentru obiecte sau acțiuni specifice din joc.
+- **Validare Permisiuni**  
+  Verifică permisiunile utilizatorilor în raport cu obiectele din joc și acțiunile permise.
 
 ---
 
 ## 📊 Statistici de Joc
 
 - **Statistici Personalizabile**  
-  Definește statistici precum `kills`, `gold_collected`, `time_played`, etc., cu validare și metadate.
+  Definește statistici precum `uciderei`, `aur_colectat`, `timp_jucat`, etc., cu tipuri sigure și metadate.
 
 - **Actualizări Flexibile**  
-  Actualizează statisticile prin metode diverse — setare directă, incrementare, etc.
+  Actualizează statisticile prin metode variate — setare directă, incrementare etc.
 
 - **Reguli de Validare**
-  - Impune valori `min` / `max`
-  - Limitează `schimbarea maximă` per actualizare
-  - Suportă valori `doar incrementale`
+  - Limite `min` / `max`
+  - Schimbare maximă admisă per actualizare
+  - Valori doar cu incrementare
 
-- **Istoric Schimbări Scor**  
-  Urmărește automat istoricul complet al modificărilor pentru audit sau analiză.
+- **Istoric al Schimbărilor**  
+  Păstrează automat istoricul complet al modificărilor pentru audit sau analiză.
 
 ---
 
 ## 🏆 Realizări
 
 - **Creare și Gestionare Realizări**  
-  Definește realizări precum „Prima Victimă” sau „Alergător de Maraton” cu logică personalizată.
+  Definește realizări precum „Prima Victimă” sau „Maratonist” folosind logică personalizată.
 
 - **Deblocare/Blocare Manuală**  
-  Administratorii pot debloca sau bloca manual realizările pentru un jucător.
+  Adminii pot debloca sau bloca realizări manual, per jucător.
 
-- **Deblocare Dinamică pe Bază de Condiții**  
-  Realizările pot fi deblocate automat în funcție de condițiile statisticilor.
+- **Deblocare Dinamică**  
+  Realizările pot fi deblocate automat în funcție de condițiile pe statistici.
 
 ---
 
 ## 🥇 Clasamente
 
-- **Generare Dinamică Clasamente**  
-  Creează clasamente pe baza statisticilor existente (ex: cei mai mulți kills, cel mai lung timp de joc).
+- **Generare Dinamică**  
+  Creează clasamente pe baza statisticilor existente (ex: cei mai mulți inamici uciși).
 
 - **Configurare Ordine**  
-  Configurează afișarea în ordine crescătoare sau descrescătoare.
+  Configurează sortarea ascendentă sau descendentă a clasamentelor.
 
 ---
 
-## 🚨 Raportarea Jucătorilor
+## 🚨 Raportare Jucători
 
-- **Raportare În Joc**  
-  Permite jucătorilor să raporteze alți utilizatori direct din joc.
+- **Raportare în Joc**  
+  Permite jucătorilor să raporteze alți jucători folosind coduri de motiv sau descrieri.
 
 - **Gestionare Rapoarte**
-  - Vizualizează rapoartele primite *despre* un jucător
-  - Vizualizează rapoartele *trimise de* un jucător
+  - Vezi rapoartele *împotriva* unui jucător
+  - Vezi rapoartele *trimise de* un jucător
 
 ---
 
 ## 📈 Urmărirea Interacțiunilor
 
 - **Urmărire Interacțiuni Personalizate**  
-  Înregistrează orice tip de interacțiune: finalizarea unui nivel, vizite în magazin, lupte PVP etc.
+  Înregistrează orice tip de interacțiune — finalizare nivel, vizite în magazin, lupte PVP etc.
 
 - **Monitorizare Serii Zilnice**  
-  Urmărește automat și recompensează serii zilnice de acțiuni per utilizator.
-
+  Urmărește automat și recompensează serii de interacțiuni zilnice ale utilizatorilor.

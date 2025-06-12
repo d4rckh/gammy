@@ -6,17 +6,25 @@
 
 ## 📸 Screenshots
 
-| Players | Achievements | Leaderboards |
-|--------|--------------|--------------|
+| Main Page                              |
+|----------------------------------------|
+| ![Main Page](screenshots/mainpage.png) |
+
+| Players                             | Achievements                                  | Leaderboards                                  |
+|-------------------------------------|-----------------------------------------------|-----------------------------------------------|
 | ![Players](screenshots/players.png) | ![Achievements](screenshots/achievements.png) | ![Leaderboards](screenshots/leaderboards.png) |
 
-| Leaderboard Entries | Parameters | Reports |
-|---------------------|------------|---------|
-| ![Entries](screenshots/leaderboards_entries.png) | ![Parameters](screenshots/parameters.png) | ![Reports](screenshots/player_reports.png) |
+| Player Stats                                  | Interactions                                  | Reports                                   |
+|-----------------------------------------------|-----------------------------------------------|-------------------------------------------|
+| ![Player Stats](screenshots/player_stats.png) | ![Interactions](screenshots/interactions.png) | ![Reports](screenshots/playerreports.png) |
 
-| Stats | Interactions |
-|-------|--------------|
-| ![Stats](screenshots/stats.png) | ![Interactions](screenshots/interactions.png) |
+| Parameters                                    | Computed Parameters                                     | Analytics                                    |
+|-----------------------------------------------|---------------------------------------------------------|----------------------------------------------|
+| ![Parameters](screenshots/gameparameters.png) | ![Computed](screenshots/player_computed_parameters.png) | ![Analytics](screenshots/stat_analytics.png) |
+
+| Player Interactions                                         | Specific Reports                                             |
+|-------------------------------------------------------------|--------------------------------------------------------------|
+| ![Player Interactions](screenshots/player_interactions.png) | ![Specific Reports](screenshots/specific_player_reports.png) |
 
 ---
 
@@ -42,9 +50,9 @@
   Update statistics through various methods — direct set, increment, etc.
 
 - **Stat Validation Rules**
-    - Enforce `min` / `max` values
-    - Limit `maximum change` per update
-    - Support `increment-only` values
+  - Enforce `min` / `max` values
+  - Limit `maximum change` per update
+  - Support `increment-only` values
 
 - **Score Change History**  
   Automatically track a detailed history of all stat changes for auditing or analytics.
@@ -80,8 +88,8 @@
   Allow players to report others with reason codes or descriptions.
 
 - **Report Management**
-    - View reports filed *against* a player
-    - View reports *submitted by* a player
+  - View reports filed *against* a player
+  - View reports *submitted by* a player
 
 ---
 
@@ -92,4 +100,3 @@
 
 - **Daily Streak Monitoring**  
   Automatically track and reward daily streaks per user interaction.
-
