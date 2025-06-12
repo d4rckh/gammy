@@ -36,6 +36,10 @@ public class AchievementService {
         return gameAchievementRepository.findAll();
     }
 
+    public void deleteAchievement(GameAchievementEntity achievementEntity) {
+        gameAchievementRepository.delete(achievementEntity);
+    }
+
     public Map<String, Boolean> getAchievementStatusForPlayer(Long playerId) {
         return this.getGameAchievements().stream()
                 .collect(Collectors.toMap(

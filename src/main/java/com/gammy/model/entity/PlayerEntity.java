@@ -3,6 +3,7 @@ package com.gammy.model.entity;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 
 @Data
 @Entity
@@ -17,5 +18,8 @@ public class PlayerEntity {
 
     @Column(nullable = false)
     private String hashedPassword;
+
+    @ColumnDefault("false")
+    private boolean banned;
 }
 

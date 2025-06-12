@@ -11,10 +11,10 @@ import java.util.Optional;
 @Repository
 public interface PlayerInteractionRepository extends CrudRepository<PlayerInteractionEntity, Long> {
     @Query("""
-                SELECT p FROM PlayerInteractionEntity p WHERE
-                    p.id = :playerId AND p.gameInteraction.apiName = :gameInteractionApiName
-                        ORDER BY p.timestamp DESC LIMIT 1
-            """)
+        SELECT p FROM PlayerInteractionEntity p
+        WHERE p.player.id = :playerId AND p.gameInteraction.apiName = :gameInteractionApiName
+        ORDER BY p.timestamp DESC
+    """)
     Optional<PlayerInteractionEntity> findLastByPlayerIdAndGameInteraction_ApiNameOrderByTimestampDesc(Long playerId, String gameInteractionApiName);
 
     List<PlayerInteractionEntity> findAllByGameInteractionApiName(String gameInteractionApiName);

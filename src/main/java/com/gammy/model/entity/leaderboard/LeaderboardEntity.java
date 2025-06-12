@@ -14,11 +14,11 @@ public class LeaderboardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String displayName;
-
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String apiName;
+
+    @Column(nullable = false, unique = true)
+    private String displayName;
 
     @Column(nullable = false)
     @ColumnDefault("")

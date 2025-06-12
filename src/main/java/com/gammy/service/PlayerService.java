@@ -42,4 +42,7 @@ public class PlayerService {
         return playerRepository.save(playerEntity);
     }
 
+    public PlayerEntity updatePlayer(PlayerEntity playerEntity) {
+        return this.playerRepository.update(playerEntity);
+    }
 }

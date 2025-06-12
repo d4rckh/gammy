@@ -15,7 +15,7 @@ public class PlayerReportEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "reporter_player_id")
     @Nullable
     private PlayerEntity reporterPlayer;

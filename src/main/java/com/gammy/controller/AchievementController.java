@@ -18,22 +18,28 @@ public class AchievementController {
     private final AchievementService achievementService;
     private final AuthorizationService authorizationService;
 
-    @Get("game")
+    @Get
     @Secured(SecurityRule.IS_AUTHENTICATED)
     List<GameAchievementEntity> getGameAchievements() {
         return this.achievementService.getGameAchievements();
     }
 
-    @Post("game")
+    @Post
     @Secured("ROLE_ADMIN")
     GameAchievementEntity createAchievement(@Body GameAchievementEntity achievement) {
         return this.achievementService.createAchievement(achievement);
     }
 
-    @Put("game")
+    @Put
     @Secured("ROLE_ADMIN")
     GameAchievementEntity updateAchievement(@Body GameAchievementEntity achievement) {
         return this.achievementService.updateAchievement(achievement);
+    }
+
+    @Delete
+    @Secured("ROLE_ADMIN")
+    void deleteAchievement(@Body GameAchievementEntity achievement) {
+        this.achievementService.deleteAchievement(achievement);
     }
 
     @Get("player/{playerId}")

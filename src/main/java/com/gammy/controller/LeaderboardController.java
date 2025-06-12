@@ -4,13 +4,12 @@ import com.gammy.model.dto.LeaderboardCreateRequest;
 import com.gammy.model.dto.LeaderboardEntries;
 import com.gammy.model.entity.leaderboard.LeaderboardEntity;
 import com.gammy.service.LeaderboardService;
-import io.micronaut.http.annotation.Body;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Controller("leaderboards")
 @RequiredArgsConstructor
@@ -23,10 +22,22 @@ public class LeaderboardController {
         return leaderboardService.createLeaderboard(leaderboardCreateRequest);
     }
 
-    @Post
+    @Get
+    @Secured("ROLE_ADMIN")
+    List<LeaderboardEntity> getLeaderboards() {
+        return leaderboardService.getLeaderboards();
+    }
+
+    @Put
     @Secured("ROLE_ADMIN")
     LeaderboardEntity updateLeaderboard(@Body LeaderboardEntity leaderboardEntity) {
         return leaderboardService.updateLeaderboard(leaderboardEntity);
+    }
+
+    @Delete
+    @Secured("ROLE_ADMIN")
+    void deleteLeaderboard(@Body LeaderboardEntity leaderboardEntity) {
+        leaderboardService.deleteLeaderboard(leaderboardEntity);
     }
 
     @Get("{apiName}")

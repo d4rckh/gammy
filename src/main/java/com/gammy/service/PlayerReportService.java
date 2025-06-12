@@ -42,4 +42,8 @@ public class PlayerReportService {
     public List<PlayerReportEntity> getReportsBy(Long reporterPlayerId) {
         return playerReportRepository.findByReporterPlayerId(reporterPlayerId);
     }
+
+    public List<PlayerReportEntity> getReports() {
+        return playerReportRepository.findAll();
+    }
 }

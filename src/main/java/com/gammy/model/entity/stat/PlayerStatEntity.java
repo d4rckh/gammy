@@ -12,6 +12,11 @@ import java.time.Instant;
 @Entity
 @Data
 @Serdeable
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"player_id", "game_stat_id"})
+        }
+)
 public class PlayerStatEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

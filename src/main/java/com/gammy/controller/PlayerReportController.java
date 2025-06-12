@@ -25,6 +25,12 @@ public class PlayerReportController {
         return this.reportService.createReport(reportPlayerRequest);
     }
 
+    @Get
+    @Secured("ROLE_ADMIN")
+    List<PlayerReportEntity> getReports() {
+        return this.reportService.getReports();
+    }
+
     @Get("by/{playerId}")
     @Secured("ROLE_ADMIN")
     List<PlayerReportEntity> getReportsBy(@PathVariable("playerId") Long playerId) {

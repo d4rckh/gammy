@@ -53,6 +53,10 @@ public class StatService {
         return gameStatRepository.save(gameStat);
     }
 
+    public void deleteGameStat(GameStatEntity gameStat) {
+        gameStatRepository.delete(gameStat);
+    }
+
     public Optional<PlayerStatEntity> getPlayerStat(Long playerId, String apiName) {
         Optional<GameStatEntity> gameStatEntity = gameStatRepository.findByApiName(apiName);
 

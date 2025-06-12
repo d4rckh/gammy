@@ -34,6 +34,12 @@ public class InteractionController {
         return interactionService.getPlayerInteractions(playerId);
     }
 
+    @Get
+    @Secured("ROLE_ADMIN")
+    List<PlayerInteractionEntity> getInteractions() {
+        return interactionService.getInteractions();
+    }
+
     @Get("type/{apiName}")
     @Secured("ROLE_ADMIN")
     List<PlayerInteractionEntity> getInteractionsByApiName(@PathVariable String apiName) {
@@ -56,5 +62,11 @@ public class InteractionController {
     @Secured("ROLE_ADMIN")
     GameInteractionEntity updateGameInteraction(@Body GameInteractionEntity gameInteractionEntity) {
         return interactionService.updateGameInteraction(gameInteractionEntity);
+    }
+
+    @Delete("type")
+    @Secured("ROLE_ADMIN")
+    void deleteGameInteraction(@Body GameInteractionEntity gameInteractionEntity) {
+        interactionService.deleteGameInteraction(gameInteractionEntity);
     }
 }

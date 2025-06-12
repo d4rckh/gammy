@@ -7,6 +7,7 @@ import com.gammy.model.entity.leaderboard.LeaderboardEntity;
 import com.gammy.model.entity.stat.GameStatEntity;
 import com.gammy.model.entity.stat.PlayerStatEntity;
 import com.gammy.repository.leaderboard.LeaderboardRepository;
+import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +21,18 @@ public class LeaderboardService {
     private final LeaderboardRepository leaderboardRepository;
     private final StatService statService;
 
+    public List<LeaderboardEntity> getLeaderboards() {
+        return this.leaderboardRepository.findAll();
+    }
+
+    public LeaderboardEntity updateLeaderboard(LeaderboardEntity leaderboardEntity) {
+        return leaderboardRepository.update(leaderboardEntity);
+    }
+
+    public void deleteLeaderboard(LeaderboardEntity leaderboardEntity) {
+        leaderboardRepository.delete(leaderboardEntity);
+    }
+
     public LeaderboardEntity createLeaderboard(LeaderboardCreateRequest leaderboardCreateRequest) {
         LeaderboardEntity leaderboardEntity = new LeaderboardEntity();
 
@@ -32,10 +45,6 @@ public class LeaderboardService {
         leaderboardEntity.setSortMethod(leaderboardCreateRequest.getSortMethod());
 
         return leaderboardRepository.save(leaderboardEntity);
-    }
-
-    public LeaderboardEntity updateLeaderboard(LeaderboardEntity leaderboardEntity) {
-        return leaderboardRepository.update(leaderboardEntity);
     }
 
     public LeaderboardEntries getLeaderboardEntries(String leaderboardApiName) {

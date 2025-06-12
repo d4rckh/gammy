@@ -3,7 +3,7 @@ info:
   title: gammy
   version: 1.0.0
 paths:
-  /achievements/game:
+  /achievements:
     get:
       operationId: getGameAchievements
       responses:
@@ -45,6 +45,17 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GameAchievementEntity"
+    delete:
+      operationId: deleteAchievement
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GameAchievementEntity"
+        required: true
+      responses:
+        "200":
+          description: deleteAchievement 200 response
   /achievements/player/{playerId}:
     get:
       operationId: getAchievementStatusForPlayer
@@ -103,6 +114,18 @@ paths:
       responses:
         "200":
           description: removePlayerAchievement 200 response
+  /interactions:
+    get:
+      operationId: getInteractions
+      responses:
+        "200":
+          description: getInteractions 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PlayerInteractionEntity"
   /interactions/player/{playerId}:
     get:
       operationId: getPlayerInteractions
@@ -186,6 +209,17 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GameInteractionEntity"
+    delete:
+      operationId: deleteGameInteraction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GameInteractionEntity"
+        required: true
+      responses:
+        "200":
+          description: deleteGameInteraction 200 response
   /interactions/type/{apiName}:
     get:
       operationId: getInteractionsByApiName
@@ -205,16 +239,24 @@ paths:
                 items:
                   $ref: "#/components/schemas/PlayerInteractionEntity"
   /leaderboards:
-    post:
+    get:
+      operationId: getLeaderboards
+      responses:
+        "200":
+          description: getLeaderboards 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LeaderboardEntity"
+    put:
       operationId: updateLeaderboard
       requestBody:
         content:
           application/json:
             schema:
-              oneOf:
-              - $ref: "#/components/schemas/LeaderboardEntity"
-              - $ref: "#/components/schemas/LeaderboardCreateRequest"
-            example: null
+              $ref: "#/components/schemas/LeaderboardEntity"
         required: true
       responses:
         "200":
@@ -223,6 +265,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/LeaderboardEntity"
+    post:
+      operationId: createLeaderboard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeaderboardCreateRequest"
+        required: true
+      responses:
+        "200":
+          description: createLeaderboard 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeaderboardEntity"
+    delete:
+      operationId: deleteLeaderboard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeaderboardEntity"
+        required: true
+      responses:
+        "200":
+          description: deleteLeaderboard 200 response
   /leaderboards/{apiName}:
     get:
       operationId: getLeaderboardEntries
@@ -239,6 +307,139 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/LeaderboardEntries"
+  /parameters:
+    get:
+      operationId: getParameters
+      responses:
+        "200":
+          description: getParameters 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ParameterEntity"
+    put:
+      operationId: updateParameter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ParameterEntity"
+        required: true
+      responses:
+        "200":
+          description: updateParameter 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ParameterEntity"
+    post:
+      operationId: createParameter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ParameterEntity"
+        required: true
+      responses:
+        "200":
+          description: createParameter 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ParameterEntity"
+    delete:
+      operationId: deleteParameter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ParameterEntity"
+        required: true
+      responses:
+        "200":
+          description: deleteParameter 200 response
+  /parameters/overrides:
+    put:
+      operationId: updatePlayerParameterOverride
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlayerParameterOverrideEntity"
+        required: true
+      responses:
+        "200":
+          description: updatePlayerParameterOverride 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerParameterOverrideEntity"
+    post:
+      operationId: createPlayerParameterOverride
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlayerOverrideParameterRequest"
+        required: true
+      responses:
+        "200":
+          description: createPlayerParameterOverride 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerParameterOverrideEntity"
+    delete:
+      operationId: deletePlayerParameterOverride
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlayerParameterOverrideEntity"
+        required: true
+      responses:
+        "200":
+          description: deletePlayerParameterOverride 200 response
+  /parameters/overrides/{playerId}:
+    get:
+      operationId: getPlayerParameterOverrides
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: getPlayerParameterOverrides 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PlayerParameterOverrideEntity"
+  /parameters/player/{playerId}:
+    get:
+      operationId: getParametersForPlayer
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: getParametersForPlayer 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
   /players:
     get:
       operationId: findAll
@@ -251,6 +452,21 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PlayerEntity"
+    put:
+      operationId: updatePlayer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlayerEntity"
+        required: true
+      responses:
+        "200":
+          description: updatePlayer 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerEntity"
     post:
       operationId: createPlayer
       requestBody:
@@ -266,7 +482,35 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PlayerEntity"
+  /players/{playerId}:
+    get:
+      operationId: findById
+      parameters:
+      - name: playerId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: findById 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerEntity"
   /reports:
+    get:
+      operationId: getReports
+      responses:
+        "200":
+          description: getReports 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PlayerReportEntity"
     post:
       operationId: reportPlayer
       requestBody:
@@ -320,7 +564,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PlayerReportEntity"
-  /stats/game:
+  /stats:
     get:
       operationId: getGameStats
       responses:
@@ -362,6 +606,17 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GameStatEntity"
+    delete:
+      operationId: deleteGameStat
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GameStatEntity"
+        required: true
+      responses:
+        "200":
+          description: deleteGameStat 200 response
   /stats/player/{playerId}:
     get:
       operationId: getPlayerStats
@@ -546,9 +801,9 @@ components:
           type: integer
           format: int64
           nullable: true
-        displayName:
-          type: string
         apiName:
+          type: string
+        displayName:
           type: string
         description:
           type: string
@@ -587,6 +842,26 @@ components:
       enum:
       - ASCENDING
       - DESCENDING
+    ParameterEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          nullable: true
+        path:
+          type: string
+        type:
+          $ref: "#/components/schemas/ParameterType"
+        value:
+          type: string
+    ParameterType:
+      type: string
+      enum:
+      - STRING
+      - FLOAT
+      - INTEGER
+      - BOOLEAN
     PlayerAchievementEntity:
       type: object
       properties:
@@ -612,6 +887,8 @@ components:
           type: string
         hashedPassword:
           type: string
+        banned:
+          type: boolean
     PlayerGameStatUpdateMethod:
       type: string
       enum:
@@ -644,6 +921,31 @@ components:
         streak:
           type: integer
           format: int64
+    PlayerOverrideParameterRequest:
+      type: object
+      properties:
+        value:
+          type: string
+        path:
+          type: string
+        playerId:
+          type: integer
+          format: int64
+    PlayerParameterOverrideEntity:
+      type: object
+      properties:
+        path:
+          type: string
+        id:
+          type: integer
+          format: int64
+          nullable: true
+        parameter:
+          $ref: "#/components/schemas/ParameterEntity"
+        player:
+          $ref: "#/components/schemas/PlayerEntity"
+        value:
+          type: string
     PlayerRegistrationRequest:
       type: object
       properties:

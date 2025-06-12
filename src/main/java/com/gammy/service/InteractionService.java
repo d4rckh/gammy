@@ -8,12 +8,14 @@ import com.gammy.repository.interaction.GameInteractionRepository;
 import com.gammy.repository.interaction.PlayerInteractionRepository;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Singleton
 @RequiredArgsConstructor
 public class InteractionService {
@@ -34,6 +36,8 @@ public class InteractionService {
         if (gameInteractionEntity.getStreak() == GameInteractionStreak.DAILY) {
             Optional<PlayerInteractionEntity> lastPlayerInteractionOptional =
                     playerInteractionRepository.findLastByPlayerIdAndGameInteraction_ApiNameOrderByTimestampDesc(playerId, interactionApiName);
+
+            log.info("Last player interaction optional is {}", lastPlayerInteractionOptional);
 
             if (lastPlayerInteractionOptional.isPresent()) {
                 PlayerInteractionEntity lastPlayerInteraction = lastPlayerInteractionOptional.get();
@@ -75,5 +79,13 @@ public class InteractionService {
 
     public GameInteractionEntity updateGameInteraction(GameInteractionEntity gameInteractionEntity) {
         return this.gameInteractionRepository.update(gameInteractionEntity);
+    }
+
+    public void deleteGameInteraction(GameInteractionEntity gameInteractionEntity) {
+        this.gameInteractionRepository.delete(gameInteractionEntity);
+    }
+
+    public List<PlayerInteractionEntity> getInteractions() {
+        return this.playerInteractionRepository.findAll();
     }
 }

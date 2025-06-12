@@ -20,21 +20,27 @@ public class StatController {
     private final AuthorizationService authorizationService;
 
     @Secured("ROLE_ADMIN")
-    @Get("game")
+    @Get
     public List<GameStatEntity> getGameStats() {
         return this.statService.getGameStats();
     }
 
     @Secured("ROLE_ADMIN")
-    @Post("game")
+    @Post
     public GameStatEntity createGameStat(@Body GameStatEntity gameStat) {
         return this.statService.createGameStat(gameStat);
     }
 
     @Secured("ROLE_ADMIN")
-    @Put("game")
+    @Put
     public GameStatEntity updateGameStat(@Body GameStatEntity gameStat) {
         return this.statService.updateGameStat(gameStat);
+    }
+
+    @Secured("ROLE_ADMIN")
+    @Delete
+    public void deleteGameStat(@Body GameStatEntity gameStat) {
+        this.statService.deleteGameStat(gameStat);
     }
 
     @Secured(SecurityRule.IS_AUTHENTICATED)

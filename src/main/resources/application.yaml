@@ -9,12 +9,28 @@ micronaut:
 
   openapi:
     target:
-      file: spec.yml
+      file: gammy-dashboard/spec.yml
 
   session:
     http:
       header: true
       cookie: true
+
+  server:
+    cors:
+      enabled: true
+      allowed-origins:
+        - "http://localhost:5173"
+      allowed-methods:
+        - GET
+        - POST
+        - OPTIONS
+        - PUT
+        - DELETE
+      allowed-headers:
+        - Authorization
+        - Content-Type
+      allow-credentials: true
 
   security:
     enabled: true
@@ -22,24 +38,6 @@ micronaut:
       enabled: false
     csrf:
       enabled: false
-      token-resolvers:
-        http-header:
-          enabled: false
-        field:
-          enabled: false
-    cors:
-      enabled: true
-      configurations:
-        local:
-          allowed-origins:
-            - '^http(s)?://(localhost|127\\.0\\.0\\.1):[0-9]+'
-          allowed-methods:
-            - GET
-            - POST
-          allowed-headers:
-            - Content-Type
-            - Authorization
-          allow-credentials: true
     authentication: session
     session:
       enabled: true
@@ -59,8 +57,13 @@ micronaut:
         access:
           - isAuthenticated()
       - pattern: /**
+        http-method: OPTIONS
         access:
           - permitAll()
+      - pattern: /**
+        access:
+          - permitAll()
+
   serde:
     serialization:
       inclusion: always
