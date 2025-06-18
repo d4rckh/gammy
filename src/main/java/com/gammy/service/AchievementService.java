@@ -5,6 +5,7 @@ import com.gammy.model.entity.achievement.GameAchievementEntity;
 import com.gammy.model.entity.achievement.PlayerAchievementEntity;
 import com.gammy.repository.achievement.GameAchievementRepository;
 import com.gammy.repository.achievement.PlayerAchievementRepository;
+import jakarta.annotation.Nullable;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,8 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -27,6 +30,10 @@ public class AchievementService {
 
     private final PlayerService playerService;
     private final StatService statService;
+
+    public Optional<GameAchievementEntity> getAchievementByApiName(String apiName) {
+        return this.gameAchievementRepository.findByApiName(apiName);
+    }
 
     public Map<String, Long> getAchievementsUnlockCount() {
         return this.getGameAchievements()
@@ -119,5 +126,11 @@ public class AchievementService {
 
     public GameAchievementEntity updateAchievement(GameAchievementEntity achievement) {
         return this.gameAchievementRepository.update(achievement);
+    }
+
+    public List<PlayerAchievementEntity> getPlayerAchievements(@Nullable Long playerId, @Nullable String apiName, @Nullable Long lastDays) {
+        Instant createdAfter = (lastDays != null) ? Instant.now().minus(Duration.ofDays(lastDays)) : null;
+
+        return this.playerAchievementRepository.find(playerId, apiName, createdAfter);
     }
 }

@@ -1,5 +1,6 @@
 package com.gammy.model.entity.achievement;
 
+import com.gammy.model.ICountableInTime;
 import com.gammy.model.entity.PlayerEntity;
 import io.micronaut.data.annotation.DateCreated;
 import io.micronaut.serde.annotation.Serdeable;
@@ -16,7 +17,7 @@ import java.time.Instant;
                 @UniqueConstraint(columnNames = {"game_achievement_id", "player_id"})
         }
 )
-public class PlayerAchievementEntity {
+public class PlayerAchievementEntity implements ICountableInTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,4 +32,9 @@ public class PlayerAchievementEntity {
 
     @DateCreated
     private Instant createdAt;
+
+    @Override
+    public Instant getTimestamp() {
+        return this.getCreatedAt();
+    }
 }

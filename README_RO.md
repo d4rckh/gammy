@@ -36,8 +36,8 @@
 - **Creare Profil Jucător**  
   Creează și gestionează ușor conturile și profilurile jucătorilor.
 
-- **Validare Permisiuni**  
-  Verifică permisiunile utilizatorilor în raport cu obiectele din joc și acțiunile permise.
+**- **Validare Permisiuni**  
+  Verifică permisiunile utilizatorilor în raport cu obiectele din joc și acțiunile permise.**
 
 ---
 

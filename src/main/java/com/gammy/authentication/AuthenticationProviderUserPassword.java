@@ -29,6 +29,9 @@ public class AuthenticationProviderUserPassword<B> implements HttpRequestReactiv
     public static final String ROLE_PLAYER = "ROLE_PLAYER";
     public static final String ADMIN_PASSWORD = "admin";
     public static final String ADMIN_USER = "admin";
+
+    public static final String PLAYER_ID = "PLAYER_ID";
+
     private final PlayerService playerService;
 
     @Override
@@ -36,40 +39,40 @@ public class AuthenticationProviderUserPassword<B> implements HttpRequestReactiv
             @Nullable HttpRequest<B> httpRequest,
             @NonNull AuthenticationRequest<String, String> authenticationRequest
     ) {
-        String identity = authenticationRequest.getIdentity();
-        String secret = authenticationRequest.getSecret();
+        String username = authenticationRequest.getIdentity();
+        String password = authenticationRequest.getSecret();
 
-        if (identity == null || identity.isEmpty()) {
+        if (username == null || username.isEmpty()) {
             return Mono.error(AuthenticationResponse.exception());
         }
 
         // ADMIN AUTHENTICATION
 
-        if (ADMIN_USER.equals(identity) && ADMIN_PASSWORD.equals(secret)) {
-            return Mono.just(AuthenticationResponse.success(identity, List.of(ROLE_ADMIN)));
+        if (ADMIN_USER.equals(username) && ADMIN_PASSWORD.equals(password)) {
+            return Mono.just(AuthenticationResponse.success(username, List.of(ROLE_ADMIN)));
         }
 
         // PLAYER AUTHENTICATION
 
-        if (!identity.startsWith(PLAYER_PREFIX)) {
+        if (!username.startsWith(PLAYER_PREFIX)) {
             return Mono.error(AuthenticationResponse.exception());
         }
 
-        String playerName = identity.substring(PLAYER_PREFIX.length());
+        String playerName = username.substring(PLAYER_PREFIX.length());
         Optional<PlayerEntity> playerOpt = playerService.findByUsername(playerName);
 
         if (playerOpt.isEmpty()) {
             return Mono.error(AuthenticationResponse.exception());
         }
 
-        if (!BCrypt.checkpw(secret, playerOpt.get().getHashedPassword())) {
+        if (!BCrypt.checkpw(password, playerOpt.get().getHashedPassword())) {
             return Mono.error(AuthenticationResponse.exception());
         }
 
         return Mono.just(AuthenticationResponse.success(
                 playerOpt.get().getUsername(),
                 List.of(ROLE_PLAYER),
-                Map.of("playerId", playerOpt.get().getId())
+                Map.of(PLAYER_ID, playerOpt.get().getId())
         ));
     }
 }

@@ -56,6 +56,36 @@ paths:
       responses:
         "200":
           description: deleteAchievement 200 response
+  /achievements/player:
+    get:
+      operationId: getPlayerAchievements
+      parameters:
+      - name: playerId
+        in: query
+        schema:
+          type: integer
+          format: int64
+          nullable: true
+      - name: apiName
+        in: query
+        schema:
+          type: string
+          nullable: true
+      - name: lastDays
+        in: query
+        schema:
+          type: integer
+          format: int64
+          nullable: true
+      responses:
+        "200":
+          description: getPlayerAchievements 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PlayerAchievementEntity"
   /achievements/player/{playerId}:
     get:
       operationId: getAchievementStatusForPlayer
@@ -124,6 +154,28 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GameAnalytics"
+  /analytics/achievement/{apiName}:
+    get:
+      operationId: getAchievementAnalytics
+      parameters:
+      - name: apiName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: lastDays
+        in: query
+        schema:
+          type: integer
+          format: int64
+          nullable: true
+      responses:
+        "200":
+          description: getAchievementAnalytics 200 response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AchievementAnalytics"
   /analytics/stat/{apiName}:
     get:
       operationId: getStatAnalytics
@@ -740,6 +792,23 @@ paths:
                 additionalProperties: true
 components:
   schemas:
+    AchievementAnalytics:
+      required:
+      - achievementEntity
+      - lastDays
+      - perDayUnlocks
+      type: object
+      properties:
+        achievementEntity:
+          $ref: "#/components/schemas/GameAchievementEntity"
+        lastDays:
+          type: integer
+          format: int64
+        perDayUnlocks:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
     GameAchievementEntity:
       type: object
       properties:
@@ -919,6 +988,9 @@ components:
     PlayerAchievementEntity:
       type: object
       properties:
+        timestamp:
+          type: string
+          format: date-time
         id:
           type: integer
           format: int64

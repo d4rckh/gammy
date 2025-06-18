@@ -1,22 +1,9 @@
-liquibase:
-  datasources:
-    default:
-      change-log: classpath:db/liquibase-changelog.xml
-
 micronaut:
   application:
     name: gammy
 
-  openapi:
-    target:
-      file: gammy-dashboard/spec.yml
-
-  session:
-    http:
-      header: true
-      cookie: true
-
   server:
+    port: 8080
     cors:
       enabled: true
       allowed-origins:
@@ -32,11 +19,31 @@ micronaut:
         - Content-Type
       allow-credentials: true
 
+  metrics:
+    enabled: true
+    export:
+      prometheus:
+        enabled: true
+
+  management:
+    enabled: true
+    endpoints:
+      all:
+        enabled: true
+        sensitive: false
+      metrics:
+        enabled: true
+        sensitive: false
+      prometheus:
+        enabled: true
+        sensitive: false
+
   security:
     enabled: true
-    redirect:
-      enabled: false
+    reject-not-found: false
     csrf:
+      enabled: false
+    redirect:
       enabled: false
     authentication: session
     session:
@@ -46,6 +53,11 @@ micronaut:
         enabled: true
       logout:
         enabled: true
+    ignored:
+      urls:
+        - /metrics
+        - /metrics/**
+        - /prometheus
     intercept-url-map:
       - pattern: /login
         access:
@@ -56,6 +68,18 @@ micronaut:
       - pattern: /profile/**
         access:
           - isAuthenticated()
+      - pattern: /metrics
+        access:
+          - permitAll()
+      - pattern: /metrics/**
+        access:
+          - permitAll()
+      - pattern: /prometheus
+        access:
+          - permitAll()
+      - pattern: /prometheus/**
+        access:
+          - permitAll()
       - pattern: /**
         http-method: OPTIONS
         access:
@@ -63,10 +87,27 @@ micronaut:
       - pattern: /**
         access:
           - permitAll()
+      - pattern: /health
+        access:
+          - permitAll()
+
+  openapi:
+    target:
+      file: gammy-dashboard/spec.yml
+
+  session:
+    http:
+      header: true
+      cookie: true
 
   serde:
     serialization:
       inclusion: always
+
+liquibase:
+  datasources:
+    default:
+      change-log: classpath:db/liquibase-changelog.xml
 
 datasources:
   default:

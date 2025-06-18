@@ -1,5 +1,6 @@
 package com.gammy.model.entity.interaction;
 
+import com.gammy.model.ICountableInTime;
 import com.gammy.model.entity.PlayerEntity;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;
@@ -12,7 +13,7 @@ import java.time.Instant;
 @Data
 @Entity
 @Serdeable
-public class PlayerInteractionEntity {
+public class PlayerInteractionEntity implements ICountableInTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

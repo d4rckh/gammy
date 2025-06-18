@@ -7,11 +7,11 @@ import com.gammy.model.entity.leaderboard.LeaderboardEntity;
 import com.gammy.model.entity.stat.GameStatEntity;
 import com.gammy.model.entity.stat.PlayerStatEntity;
 import com.gammy.repository.leaderboard.LeaderboardRepository;
-import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 @Singleton
@@ -55,9 +55,13 @@ public class LeaderboardService {
         List<LeaderboardEntry> entries = IntStream.range(0, playerStatEntities.size())
                 .mapToObj(i -> {
                     PlayerStatEntity stat = playerStatEntities.get(i);
+
+                    if (stat.getPlayer().isBanned()) return null;
+
                     int rank = i + 1;
                     return new LeaderboardEntry(stat.getPlayer(), stat.getValue(), (long) rank);
                 })
+                .filter(Objects::nonNull)
                 .toList();
 
         return new LeaderboardEntries(leaderboardEntity, entries);

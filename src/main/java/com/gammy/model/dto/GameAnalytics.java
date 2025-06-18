@@ -3,6 +3,7 @@ package com.gammy.model.dto;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Builder;
 import lombok.Data;
+
 import java.util.Map;
 
 @Data

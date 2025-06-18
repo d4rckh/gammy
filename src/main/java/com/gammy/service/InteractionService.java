@@ -37,7 +37,7 @@ public class InteractionService {
 
         if (gameInteractionEntity.getStreak() == GameInteractionStreak.DAILY) {
             Optional<PlayerInteractionEntity> lastPlayerInteractionOptional =
-                    playerInteractionRepository.findLastByPlayerIdAndGameInteraction_ApiNameOrderByTimestampDesc(playerId, interactionApiName);
+                    playerInteractionRepository.findLastByPlayerIdAndGameInteractionApiNameOrderByTimestampDesc(playerId, interactionApiName);
 
             log.info("Last player interaction optional is {}", lastPlayerInteractionOptional);
 

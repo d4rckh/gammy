@@ -20,6 +20,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/achievements/player": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getPlayerAchievements"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/achievements/player/{playerId}": {
         parameters: {
             query?: never;
@@ -60,6 +76,22 @@ export interface paths {
             cookie?: never;
         };
         get: operations["getGameAnalytics"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/analytics/achievement/{apiName}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAchievementAnalytics"];
         put?: never;
         post?: never;
         delete?: never;
@@ -421,9 +453,19 @@ export interface paths {
         trace?: never;
     };
 }
+
 export type webhooks = Record<string, never>;
+
 export interface components {
     schemas: {
+        AchievementAnalytics: {
+            achievementEntity: components["schemas"]["GameAchievementEntity"];
+            /** Format: int64 */
+            lastDays: number;
+            perDayUnlocks: {
+                [key: string]: number;
+            };
+        };
         GameAchievementEntity: {
             /** Format: int64 */
             id?: number | null;
@@ -508,6 +550,8 @@ export interface components {
         /** @enum {string} */
         ParameterType: "STRING" | "FLOAT" | "INTEGER" | "BOOLEAN";
         PlayerAchievementEntity: {
+            /** Format: date-time */
+            timestamp?: string;
             /** Format: int64 */
             id?: number | null;
             gameAchievement?: components["schemas"]["GameAchievementEntity"];
@@ -612,7 +656,9 @@ export interface components {
     headers: never;
     pathItems: never;
 }
+
 export type $defs = Record<string, never>;
+
 export interface operations {
     getGameAchievements: {
         parameters: {
@@ -704,6 +750,30 @@ export interface operations {
             };
         };
     };
+    getPlayerAchievements: {
+        parameters: {
+            query?: {
+                playerId?: number | null;
+                apiName?: string | null;
+                lastDays?: number | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description getPlayerAchievements 200 response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlayerAchievementEntity"][];
+                };
+            };
+        };
+    };
     getAchievementStatusForPlayer: {
         parameters: {
             query?: never;
@@ -788,6 +858,30 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["GameAnalytics"];
+                };
+            };
+        };
+    };
+    getAchievementAnalytics: {
+        parameters: {
+            query?: {
+                lastDays?: number | null;
+            };
+            header?: never;
+            path: {
+                apiName: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description getAchievementAnalytics 200 response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AchievementAnalytics"];
                 };
             };
         };

@@ -4,9 +4,11 @@ import com.gammy.model.entity.achievement.GameAchievementEntity;
 import com.gammy.model.entity.achievement.PlayerAchievementEntity;
 import com.gammy.service.AchievementService;
 import com.gammy.service.AuthorizationService;
+import io.micronaut.context.annotation.Parameter;
 import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
+import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -64,5 +66,15 @@ public class AchievementController {
         authorizationService.throwIfCantWritePlayerId(playerId);
 
         this.achievementService.removePlayerAchievement(playerId, apiName);
+    }
+
+    @Get("player")
+    @Secured("ROLE_ADMIN")
+    List<PlayerAchievementEntity> getPlayerAchievements(
+            @Nullable @Parameter Long playerId,
+            @Nullable @Parameter String apiName,
+            @Nullable @Parameter Long lastDays
+    ) {
+        return this.achievementService.getPlayerAchievements(playerId, apiName, lastDays);
     }
 }
